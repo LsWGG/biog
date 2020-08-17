@@ -2,7 +2,7 @@
 .left-col {
     /* background:#fff; */
     background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)),
-    url('/img/xiaoniao.gif') no-repeat 0% 0%/ cover;
+    url('https://tupian-1300728887.cos.ap-chengdu.myqcloud.com/xiaoniao.gif') no-repeat 0% 0%/ cover;
     background-size: 100% 100%;
     width:300px;
     position:fixed;
