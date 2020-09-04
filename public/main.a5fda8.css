@@ -4,7 +4,7 @@
     background: linear-gradient(rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.55)),
     url('https://tupian-1300728887.cos.ap-chengdu.myqcloud.com/xiaoniao.gif') no-repeat 0% 0%/ cover;
     background-size: 100% 100%;
-    width:300px;
+    /* width:300px; */
     position:fixed;
     opacity:1;
     transition:all .3s ease-in;
@@ -37,9 +37,9 @@
 	position: absolute;
 	right: 0;
 	min-height: 100%;
-	left: 300px;
+	/* left: 300px; */
 	width: auto;
-    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('/img/tianping.png') no-repeat 0% 0%/ cover;
+    background: linear-gradient(rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), url('https://tupian-1300728887.cos.ap-chengdu.myqcloud.com/tianping.png') no-repeat 0% 0%/ cover;
     background-size: 100% 100%;
     background-attachment: fixed;
 }

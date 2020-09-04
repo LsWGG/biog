@@ -2,12 +2,12 @@
 title: ES基本操作
 date: 2020-07-11 11:11:47
 tags: ES
-top: 0
+top: 1
 ---
 
 # Elasticsearch基本操作
 
-## 一、简介
+# 一、简介
 
 **Elasticsearch（ES）：**一款基于[Apache Lucene(TM)](https://lucene.apache.org/core/)的开源的全文检索和分析引擎。通过简单的`RESTful API`来隐藏其复杂性、同时也做了分布式相关的工作。
 
@@ -38,307 +38,745 @@ Elasticsearch集群可以包含多个索引（数据库），每一个索引可�
 7. 分片（shards）：分片是索引的一部分，一个索引由多个分片组成。每个分片可以分布在不同的节点上，ES会根据文档id（也可以指定其他字段）做hash，使用得到的hash值将文档路由到指定分片上。分片是ES做Data Rebalance的最小单元。
 8. 副本（replicas）：创建索引时可以为索引指定0个或者多个副本。副本是分片级别的，即索引的分片由1个主分片（primary shard）和0个或者多个副本分片（replica shard）组成。primary shard可以接受读取和写入请求，replica shard只能接受读取请求。所以副本只能提高数据的可用性和并发读取能力。当primary shard所在服务器的节点挂掉以后，ES会通过leader选举机制将replica shard为primary shard。
 
-## 二、基本查询
+#### 文本分析
 
-1. 分页
+**将文本转换成一系列单词（Term or Token）的过程，用于创建和查询倒排索引**
+
+- 分词器：是ES中专门处理分词的组件，由一下三部分组成
+  1. Character Filters：针对原始文本进行处理，比如去除html标签
+  2. Tokenizer：将原始文本按照一定规则切分为单词
+  3. Token Filters：针对Tokenizer处理的单词进行再加工，比如转小写、删除或增新等处理
+
+- 内置分词器：
+  1. Standard Analyzer：默认分词器，按词切分，小写处理，删除大多标点符号
+  2. Simple Analyzer：按照非字母切分、小写处理
+  3. Whitespace Analyzer：按照空白字符分割
+  4. Keyword Analyzer：不分词
+
+- 分词查看
+
+  ```json
+  POST /_analyze
+  {
+    "analyzer": "keyword",
+    "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
+  }
+  ```
+
+详情点击跳转[官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/analysis-analyzers.html)查看
+
+#### 倒排索引
+
+**ES把文档中的数据进行分析后，将词和文档之间建立映射关系。**
+
+组成：倒排索引由文档中不重复词的列表＋每个词被包含的文档ID列表
+
+查询过程：
+
+1. 搜索词“搜索引擎”，获得对应的文档ID列表，1，3
+2. 通过正排索引查询1和3的完整内容
+3. 返回最终结果
+
+<img src="https://tupian-1300728887.cos.ap-chengdu.myqcloud.com/image-20200904171011154.png" alt="image-20200904171011154" style="zoom:67%;" />
+
+# 二、基本查询
+
+## 空查询
+
+```json
+GET /_search
+{}
+
+GET /_search
+{
+    "query": {
+        "match_all": {}
+    }
+}
+```
+
+### 字段详解
+
+![image-20200904172752621](https://tupian-1300728887.cos.ap-chengdu.myqcloud.com/image-20200904172752621.png)
+
+### 相关性
+
+**根据ES的相似度算法（TF/IDF）得出的结果，具体值由_score字段表示，根据以下维度计算得出**
+
+1. 检索词频率： 检索词在该字段出现的频率，频率越高，权重越大。字段中出现过 5 次要比只出现过 1 次的相关性高。
+
+2. 反向文档频率：检索词在使用中出现的频率，频率越高，权重越低。检索词出现在多数文档中会比出现在少数文档中的权重更低。
+
+3. 字段长度准则：字段长度越长，权重越低
 
    ```json
+   // 请求后增加explain=true即可
+   GET /_search
    {
-     "query": {
-       "match_all": {}
-     },
-     "from": 0,  
-     "size": 1  
+      "explain":true,
+      "query"   : { "match" : { "name" : "John Smith" }}
    }
    ```
 
-   from：从第几个商品开始查，最开始是 0
+## 查询与过滤
 
-   size：要查几个结果
+|            | **Query**                                                    | **Filter**                                                   |
+| ---------- | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| 争对问题   | 该文档匹不匹配这个查询，它的相关度高么❓                      | 这篇文档是否与该查询匹配❓                                    |
+| 相关度处理 | 先查询符合搜索条件的文档数，然后计算每个文档对于搜索条件的相关度分数，再根据评分倒序排序 | 只根据搜索条件过滤出符合的文档,   不进行评分, 忽略TF/IDF信息 |
+| 性能       | 性能较差, 有排序 , 并且没有缓存功能（有倒排索引来弥补）      | 性能更好, 无排序；  会缓存比较常用的filter的数据             |
+| 栗子       | ❗ 查询与“first blog”字段最佳匹配的文档 ❗                     | ❗ 搜索博客等级(level)大于等于2, 同时发布日期(post_date)是2018-11-11的博客 ❗ |
 
-2. 范围查询（range）
-
-   ```json
-   {
-     "query": {
-       "range": {
-         "price": {
-           "gte": 400,
-           "lte": 700
-         }
-       }
-     }
-   }
-   ```
-
-   gt：大于
-
-   gte：大于等于
-
-   lt：小于
-
-   lte：小于等于
-
-### match
-
-查询的字段内容是进行分词处理的，只要分词的单词结果中，在数据中有满足任意的分词结果都会被查询出来
+###  1. ❗ 查询与"first blog"字段最佳匹配的文档 ❗
 
 ```json
+// query
+GET /_search
 {
   "query": {
     "match": {
-      "product_name": "PHILIPS toothbrush"
+      "desc": "four blog"
     }
   }
 }
-```
 
-1. operator ：自定义匹配关系
-
-```json
+// filter
+GET /_search
 {
   "query": {
-    "match": {
-      "product_name": {
-        "query": "PHILIPS toothbrush",
-        "operator": "and"
-      }
-     }
-   }
-}
-```
-
-2. 分词概率匹配（分词命中50%就返回）
-
-```json
-{
-  "query": {
-    "match": {
-      "product_name": {
-        "query": "java 程序员 书 推荐",
-        "minimum_should_match": "50%"
-      }
-    }
-  }
-}
-```
-
-#### multi_match：同一条件匹配多个字段
-
-```json
-{
-  "query": {
-    "multi_match": {
-      "query": "toothbrush",
-      "fields": ["product_name","product_desc"]
-    }
-  }
-}
-```
-
-#### match_phrase（短语搜索）
-
-对查询词不进行分词，必须完全匹配查询词才可以作为结果显示。
-
-```json
-{
-  "query": {
-    "match_phrase": {
-      "product_name": "PHILIPS toothbrush"
-    }
-  }
-}
-```
-
-### term和terms
-
-代表完全匹配，即不进行分词器分析，文档中必须包含整个搜索的词汇
-
-```json
-{
-  "query": {
-      "filter":{
-        "term": {
-          "product_name": "python"
-        }
-      }
-    }
-}
-```
-
-相比于数据库中的in
-
-```json
-{
-  "query": {
+    "bool": {
       "filter": {
-        "terms": {
-          "product_name": [
-            "python",
-            "java"
-          ]
+        "match": {
+          "desc": "four blog"
         }
       }
     }
+  }
 }
 ```
 
-### bool
+### 2. ❗ 搜索博客等级(level)大于等于2, 同时发布日期(post_date)是2018-11-11的博客 ❗
 
-bool 下包括：
-
-- must（必须匹配，类似于数据库的 =）
-
-- must_not（必须不匹配，类似于数据库的 !=）
-
-- should（没有强制匹配，类似于数据库的 or）
-
-  - 如果组合查询中没有must条件，可通过minimum_should_match 设置匹配多个
-
-    ```json
-    {
-      "query": {
+```json
+// query
+GET /_search
+{
+    "query": {
         "bool": {
-          "should": [
-            {
-              "match": {
-                "product_name": "java"
-              }
-            },
-            {
-              "match": {
-                "product_name": "程序员"
-              }
-            },
-          ],
-          "minimum_should_match": 2
+            "must": [
+                { "match": { "post_date": "2018-11-11" } }, 
+                { "range": { "level": { "gte": 2 } } }
+            ]
         }
-      }
     }
-    ```
+}
+// filter
+GET /_search
+{
+    "query": {
+        "bool": {
+            "must": { 
+                "match": { "post_date": "2018-11-11" }
+            }, 
+            "filter": {
+                "range": { "level": { "gte": 2 } }
+            }
+        }
+    }
+}
+```
 
-- filter（过滤）
+## 结构化搜索
+
+```json
+POST /my_store/_bulk
+{ "index": { "_id": 1 }}
+{ "price" : 10, "productID" : "XHDK-A-1293-#fJ3" }
+{ "index": { "_id": 2 }}
+{ "price" : 20, "productID" : "KDKE-B-9947-#kL5" }
+{ "index": { "_id": 3 }}
+{ "price" : 30, "productID" : "JODL-X-1937-#pV7" }
+{ "index": { "_id": 4 }}
+{ "price" : 30, "productID" : "QQPX-R-3956-#aD8" }
+```
+
+**查看索引详情**
+
+```json
+GET /my_store
+```
+
+### 1. 精确值查找（term）
+
+> 1. 查询价格20的所有产品
+>
+>    SQL：==SELECT * FROM products WHERE price = 20==
+>
+>    ```json
+>    GET /_search
+>    {
+>     "query" : {
+>         "constant_score" : { 
+>             "filter" : {
+>                 "term" : { 
+>                     "price" : 20
+>                 }
+>             }
+>         }
+>     }
+>    }
+>    // constant_score关键字将trem查询转化为filter
+>    GET /_search
+>    {
+>      "query":{
+>        "bool": {
+>          "filter": {
+>            "term": {
+>              "price": 20
+>            }
+>          }
+>        }
+>      }
+>    }
+>    ```
+>
+> 2. 查询productID为XHDK-A-1293-#fJ3的文档
+>
+>    SQL：==SELECT * FROM products WHERE  productID = "XHDK-A-1293-#fJ3"==
+>
+>    ```json
+>    GET /_search
+>    {
+>        "query" : {
+>            "constant_score" : {
+>                "filter" : {
+>                    "term" : {
+>                        "productID" : "XHDK-A-1293-#fJ3"
+>                    }
+>                }
+>            }
+>        }
+>    }
+>    
+>    // 查看分词结果
+>    GET /my_store/_analyze
+>    {
+>      "field": "productID",
+>      "text": "XHDK-A-1293-#fJ3"
+>    }
+>    ```
+>
+>    总结：term会拿"XHDK-A-1293-#fJ3"，去倒排索引中找，但倒排索引表里只有"xhdk","a","1293","fj3",因此查不到
+>
+>    **解决办法**
+>
+>    1. match_phrase关键字
+>
+>       ```json
+>       GET /_search
+>       {
+>           "query" : {
+>               "match_phrase" : {
+>                   "productID" : "XHDK-A-1293-#fJ3"
+>               }
+>           }
+>       }
+>       ```
+>
+>    2. 重新配置该字段的分词规则
+>
+>       ```json
+>       // 1.删除索引
+>       DELETE /my_store
+>       //2.指定productID字段使用keyword规则
+>       PUT /my_store
+>       {
+>       	"mappings": {
+>       			"properties": {
+>       				"price": {
+>       					"type": "long"
+>       				},
+>       				"productID": {
+>       					"type": "text",
+>       					"analyzer": "keyword"
+>       				}
+>       			}
+>       	}
+>       }
+>       ```
+>
+
+### 2. 多个精确值查找（terms）
+
+> 1. 查找price为20 && 30 的文档
+>
+>    ```json
+>    GET /my_store/_search
+>    {
+>        "query" : {
+>            "constant_score" : {
+>                "filter" : {
+>                    "terms" : { 
+>                        "price" : [20, 30]
+>                    }
+>                }
+>            }
+>        }
+>    }
+>    ```
+
+### 3. range(范围过滤)
+
+**gt:>   lt:<    gte:>=  lte:<=**
+
+> 1. 查找price大于20且小于40的产品
+>
+>    SQL：==SELECT * FROM products WHERE  price BETWEEN 20 AND 40==
+>
+>    ```json
+>    GET /my_store/_search
+>    {
+>        "query" : {
+>            "constant_score" : {
+>                "filter" : {
+>                    "range" : {
+>                        "price" : {
+>                            "gte" : 20,
+>                            "lt"  : 40
+>                        }
+>                    }
+>                }
+>            }
+>        }
+>    }
+>    ```
+>
+> 2. 日期范围查询  now  data||+1M
+>
+>    ```json
+>    GET /website/_search
+>    {
+>        "query" : {
+>            "constant_score" : {
+>                "filter" : {
+>                    "range" : {
+>                        "post_date": {
+>                            "gte" : "2020-01-01",
+>                            "lt": "2020-09-09||+1h"
+>                        }
+>                    }
+>                }
+>            }
+>        }
+>    }
+>    ```
+
+### 4. 组合查询（bool）
+
+> 1. SQL：==SELECT * FROM products WHERE (price = 20 OR productID = "XHDK-A-1293-#fJ3") AND (price != 30)==
+>
+>    ```json
+>    GET /my_store/_search
+>    {
+>       "query" : {
+>          "constant_score" : { 
+>             "filter" : {
+>                "bool" : {
+>                  "should" : [
+>                     { "term" : {"price" : 20}}, 
+>                     { "term" : {"productID" : "XHDK-A-1293-#fJ3"}} 
+>                  ],
+>                  "must_not" : {
+>                     "term" : {"price" : 30} 
+>                  }
+>               }
+>             }
+>          }
+>       }
+>    }
+>    ```
+>
+> 2. SQL：==SELECT * FROM products WHERE productID = "KDKE-B-9947-#kL5" OR (productID = "JODL-X-1937-#pV7" AND price = 30)==
+>
+>    ```json
+>    GET /my_store/_search
+>    {
+>       "query" : {
+>          "constant_score" : {
+>             "filter" : {
+>                "bool" : {
+>                  "should" : [
+>                    { "term" : {"productID" : "KDKE-B-9947-#kL5"}}, 
+>                    { "bool" : { 
+>                      "must" : [
+>                        { "term" : {"productID" : "JODL-X-1937-#pV7"}}, 
+>                        { "term" : {"price" : 30}} 
+>                      ]
+>                    }}
+>                  ]
+>               }
+>             }
+>          }
+>       }
+>    }
+>    ```
+
+### 5. 处理null值（exists）
+
+```json
+POST /posts/_bulk
+{ "index": { "_id": "1"              }}
+{ "tags" : ["search"]                }  
+{ "index": { "_id": "2"              }}
+{ "tags" : ["search", "open_source"] }  
+{ "index": { "_id": "3"              }}
+{ "other_field" : "some data"        }  
+{ "index": { "_id": "4"              }}
+{ "tags" : null                      }  
+{ "index": { "_id": "5"              }}
+{ "tags" : ["search", null]          }
+```
+
+> 1. 存在查询
+>
+>    ==SQL:SELECT tags FROM posts WHERE tags IS NOT NULL==
+>
+>    ```json
+>    GET /posts/_search
+>    {
+>        "query" : {
+>            "constant_score" : {
+>                "filter" : {
+>                    "exists" : { "field" : "tags" }
+>                }
+>            }
+>        }
+>    }
+>    ```
+>
+> 2. 缺失查询
+>
+>    ==SQL:SELECT tags FROM posts WHERE tags IS NULL==
+>
+>    ```json
+>    GET /posts/_search
+>    {
+>        "query" : {
+>            "constant_score" : {
+>                "filter" : {
+>                  "bool": {
+>                    "must_not":{"exists" : { "field" : "tags" }}
+>                  }
+>                }
+>            }
+>        }
+>    }
+>    ```
+
+## 全文搜索
+
+```json
+POST /my_index/my_type/_bulk
+{ "index": { "_id": 1 }}
+{ "title": "The quick brown fox" }
+{ "index": { "_id": 2 }}
+{ "title": "The quick brown fox jumps over the lazy dog" }
+{ "index": { "_id": 3 }}
+{ "title": "The quick brown fox jumps over the quick dog" }
+{ "index": { "_id": 4 }}
+{ "title": "Brown fox brown dog" }
+```
+
+### 1. match
+
+> 1. 单个词查询
+>
+>    ```json
+>    GET /my_index/_search
+>    {
+>        "query": {
+>            "match": {
+>                "title": "QUICK!"
+>            }
+>        }
+>    }
+>    ```
+>
+>    执行过程：
+>
+>    1. 检查字段类型
+>
+>    2. 分析查询字符串
+>
+>       ```json
+>       GET /_analyze
+>       {
+>         "text": "QUICK!"
+>       }
+>       ```
+>
+>    3. 调用term查询，去倒排索引中查询包含quick的文档
+>
+>       ```json
+>       GET /my_type/_search
+>       {
+>         "query": {
+>           "term": {
+>             "title": "quick"
+>           }
+>         }
+>       }
+>       ```
+>
+>    4. 为每个文档评分并排序
+>
+> 2. 多词查询
+>
+>    ```json
+>    GET /my_index/_search
+>    {
+>        "query": {
+>            "match": {
+>                "title": "BROWN DOG!"
+>            }
+>        }
+>    }
+>    
+>    GET /my_index/_search
+>    {
+>      "query": {
+>        "bool": {
+>          "should": [
+>            {"term": {"title": "brown"}},
+>            {"term":{"title":"dog"}}
+>          ]
+>        }
+>      }
+>    }
+>    ```
+>
+>    总结:被匹配的此项越多，文档越相关
+>
+> 3. operator：修改匹配关系
+>
+>    ```json
+>    GET /my_index/_search
+>    {
+>        "query": {
+>            "match": {
+>                "title": {      
+>                    "query":    "BROWN DOG!",
+>                    "operator": "and"
+>                }
+>            }
+>        }
+>    }
+>    
+>    GET /my_index/_search
+>    {
+>      "query": {
+>        "bool": {
+>          "must": [
+>            {"term": {"title": "brown"}},
+>            {"term":{"title":"dog"}}
+>          ]
+>        }
+>      }
+>    }
+>    ```
+>
+
+### 2. bool（组合查询）
+
+> 1. 查询包含quick，但不包含lazy的所有文档，如果包含should里的字段，则该文章相关度更高
+>
+>    ```json
+>    GET /my_index/_search
+>    {
+>      "query": {
+>        "bool": {
+>          "must":     { "match": { "title": "quick" }},
+>          "must_not": { "match": { "title": "lazy"  }},
+>          "should": [
+>                      { "match": { "title": "brown" }},
+>                      { "match": { "title": "dog"   }}
+>          ]
+>        }
+>      }
+>    }
+>    ```
+
+### 3. match_phrase（短语匹配）
+
+```json
+GET /my_index/_search
+{
+    "query": {
+        "match_phrase": {
+            "title": "quick brown fox"
+        }
+    }
+}
+```
+
+## 分页（深度分页）from+size
+
+缺点：
+
+- 效率低。比如from=5000，size=100，es需要在各个分片上匹配排序并得到5000+100条有效数据，然后在结果集中取最后100条结果。
+- 最大可查询条数为1W条。ES目前默认支持的skin值max_result_window=10000，当from+size>max_result_window时，ES就会返回错误。
+- ==解决办法：使用scroll（游标查询）==
 
 ```json
 {
   "query": {
-    "bool": {
-      "must": [
-        {
-          "match": {
-            "product_name": "PHILIPS toothbrush"
-          }
-        }
-      ],
-      "should": [
-        {
-          "match": {
-            "product_desc": "刷头"
-          }
-        }
-      ],
-      "must_not": [
-        {
-          "match": {
-            "product_name": "HX6730"
-          }
-        }
-      ],
-      "filter": {
-        "range": {
-          "price": {
-            "gte": 33.00
-          }
-        }
-      }
-    }
-  }
+    "match_all": {}
+  },
+  "from": 0,  
+  "size": 1  
 }
 ```
 
-#### boost用法（搜索优先级）
+from：从第几个商品开始查，最开始是 0
 
-例：PHILIPS toothbrush，要比：Braun toothbrush 更加优先
+size：要查几个结果
 
-```json
-{
-  "query": {
-    "bool": {
-      "must": [
-        {
-          "match": {
-            "product_name": "toothbrush"
-          }
-        }
-      ],
-      "should": [
-        {
-          "match": {
-            "product_name": {
-              "query": "PHILIPS",
-              "boost": 4
-            }
-          }
-        },
-        {
-          "match": {
-            "product_name": {
-              "query": "Braun",
-              "boost": 3
-            }
-          }
-        }
-      ]
-    }
+## 游标查询（scroll）
+
+- 启动游标查询
+
+  ```
+  CET /host/_search?scroll=1m
+  ```
+
+  scroll=1m表示游标查询窗口保持1分钟，如果一次取的数据量大可以设置大一些的时间；返回字段包含一个scroll_id，接下来用这个字段获取后续值
+
+- 循环获取
+
+  循环获取余下值
+
+  ```json
+  GET /_search/scroll
+  {
+  	"scroll": "1m"，
+  	"scroll_id": scroll_id
   }
-}
-```
+  ```
 
-### 模糊查询（性能较差）
+  > python操作
+  >
+  > ```python
+  > from elasticsearch import Elasticsearch
+  > 
+  > es = Elasticsearch(['localhost:9200'])
+  > # 1.启动游标
+  > queryData = es.search("internal_isop_log", body=dsl_body, scroll='1m', size=1000)
+  > # 获取scroll_id
+  > hits_list = queryData.get("hits").get("hits")
+  > scroll_id = queryData['_scroll_id']
+  > 
+  > # 2.循环获取
+  > total = queryData.get("hits").get("total").get('value')
+  > for i in range(int(total / 1000)):
+  >     ss = {'scroll': '1m', 'scroll_id': scroll_id}
+  >     res = self.es.scroll(body=ss)
+  > ```
 
-1. prefix前缀搜索
+## 模糊查询
 
-   例：iphone-6，iphone-7。搜索 iphone 
+1. 创建索引，设置postcode字段使用keyword规则 ❗模糊查询会匹配倒排表里的字段 ❗
 
-   ```bash
+   ```json
+   PUT /address
    {
-     "query": {
-       "prefix": {
-         "product_name": {
-           "value": "iphone"
-         }
-       }
-     }
+   	"mappings": {
+   			"properties": {
+   				"postcode": {
+   					"type": "text",
+   					"analyzer": "keyword"
+   				}
+   			}
+   	}
    }
    ```
 
-2. wildcard通配符搜索
+2. 导入数据
 
-   ```bash
+   ```json
+   PUT /address/_bulk
+   { "index": { "_id": 1 }}
+   { "postcode": "W1V 3DG" }
+   { "index": { "_id": 2 }}
+   { "postcode": "W2F 8HW" }
+   { "index": { "_id": 3 }}
+   { "postcode": "W1F 7HW" }
+   { "index": { "_id": 4 }}
+   { "postcode": "WC1N 1LZ" }
+   { "index": { "_id": 5 }}
+   { "postcode": "SW5 0BE" }
+   ```
+
+3. 倒排表
+
+   |    Term    | Doc IDs |
+   | :--------: | :-----: |
+   | "SW5 0BE"  |    5    |
+   | "W1F 7HW"  |    3    |
+   | "W1V 3DG"  |    1    |
+   | "W2F 8HW"  |    2    |
+   | "WC1N 1LZ" |    4    |
+
+1. 前缀匹配（prefix）
+
+   匹配postcode字段以“W1”开头的文档
+   
+   ```json
+   GET /address/_search
    {
-     "query": {
-       "wildcard": {
-         "product_name": {
-           "value": "ipho*"
-         }
+       "query": {
+           "prefix": {
+               "postcode": "W1"
+           }
        }
-     }
    }
    ```
 
-3. regexp正则搜索
+2. 通配符查询（wildcard）
 
-   ```bash
+   ```json
+   GET /address/_search
    {
-     "query": {
-       "regexp": {
-         "product_name": "iphone[0-9].+"
+       "query": {
+           "wildcard": {
+               "postcode": "W?F*HW" 
+           }
        }
-     }
    }
    ```
 
-## 三、聚合分组
+3. 正则匹配（regexp）
+
+   ```json
+   GET /address/_search
+   {
+       "query": {
+           "regexp": {
+               "postcode": "W[0-9].+" 
+           }
+       }
+   }
+   ```
+
+**不配置分词规则带来的影响**
+
+>  栗子：title字段为“Quick brown fox” ，倒排索引中会生成： quick 、 brown 和 fox 
+>
+>  | { "regexp": { "title": "br.*" }}      | 可以匹配                       |
+>  | ------------------------------------- | ------------------------------ |
+>  | { "regexp": { "title": "Qu.*" }}      | 匹配不到：quick为小写          |
+>  | { "regexp": { "title": "quick br*" }} | 匹配不到：quick和brown是分开的 |
+
+# 三、聚合分组
 
 ElasticSearch除了致力于搜索之外，也提供了聚合实时分析数据的功能，透过聚合，我们可以得到一个数据的概览，分析和总结全套的数据
 
