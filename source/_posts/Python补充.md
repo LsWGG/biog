@@ -1,5 +1,5 @@
 ---
-title: '''Python补充'''
+title: Python补充
 date: 2020-09-30 16:14:15
 tags: Python
 top: 0
