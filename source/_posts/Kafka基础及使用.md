@@ -46,7 +46,7 @@ top: 0
 
 3. 查看某个消费组的详情
 
-   `bin/kafka-consumer-groups.sh --new-consumer --bootstrap-server 127.0.0.1:9092  --group test-consumer-group --describe`
+   `bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092  --group test-consumer-group --describe`
 
    - 查看组名为test-consumer-group的消费组的情况。
 

@@ -1,0 +1,35 @@
+# 安装M2Crypto
+
+用于RSA公私钥加解密
+
+## 在线安装
+
+1. 安装pip
+
+   `curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py`
+
+   运行
+
+   `python get-pip.py`
+
+2. 安装依赖
+
+   `yum install libssl-dev swig`
+
+   可能会报错
+
+   ![image-20201221103032227](C:\Users\lishun\AppData\Roaming\Typora\typora-user-images\image-20201221103032227.png)
+
+   安装openssl-devel解决：`yum install openssl-devel`
+
+   参考：https://blog.csdn.net/blueheart20/article/details/65653670/
+
+3. 安装M2Crypto
+
+   `pip install M2Crypto`
+
+rpm包下载网站：
+
+http://rpmfind.net/linux/RPM/index.html
+
+https://vault.centos.org/
