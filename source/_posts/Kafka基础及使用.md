@@ -19,6 +19,8 @@ top: 0
 
    `bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --create --replication-factor 3 --partitions 1 --topic test`
 
+   <!-- more -->
+
    - topic 定义topic名
    - replication-factor 定义副本数
    - partitions 定义分区数

@@ -15,7 +15,7 @@ top: 0
 
 **firewall-cmd --reload**  # 配置立即生效
 
- 
+ <!-- more -->
 
 2、查看防火墙所有开放的端口
 

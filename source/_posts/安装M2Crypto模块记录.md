@@ -12,13 +12,15 @@
 
    `python get-pip.py`
 
+   <!-- more -->
+
 2. 安装依赖
 
    `yum install libssl-dev swig`
 
    可能会报错
 
-   ![image-20201221103032227](C:\Users\lishun\AppData\Roaming\Typora\typora-user-images\image-20201221103032227.png)
+   ![image-20201221103032227](https://tupian-1300728887.cos.ap-chengdu.myqcloud.com/error_no_openssl.png)
 
    安装openssl-devel解决：`yum install openssl-devel`
 
