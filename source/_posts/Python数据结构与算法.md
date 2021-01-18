@@ -228,7 +228,7 @@ top: 0
 
 链式存储结构：每个节点由三个域组成：数据域和左、右指针域。
 
-![](https://img-blog.csdnimg.cn/20181214150636793.jpeg?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2NzZG5fYWl5YW5n,size_16,color_FFFFFF,t_70)
+![](https://tupian-1300728887.cos.ap-chengdu.myqcloud.com/%E4%BA%8C%E5%8F%89%E6%A0%91.jpeg)
 
 ##### 1.1.2  二叉树遍历
 

@@ -9,7 +9,7 @@ top: 0
 
 ## 一、RSA加解密
 
-RSA加密算法是一种非对称加密算法，加密的秘钥是由公钥和私钥两部分组成秘钥对，公钥用来加密消息，私钥用来对消息进行解密
+RSA加密算法是一种非对称加密算法，加密的秘钥是由公钥和私钥两部分组成秘钥对，公钥用来加密消息，私钥用来对消息进行解密；也可进行反向操作
 
 <!--more-->
 
@@ -80,6 +80,80 @@ with open('public.pem', 'wb') as f:
    print(text.decode())
    ```
 
+---
+
+> 用到M2Crypto库，安装详见：[点此跳转](https://lswgg.github.io/2020/12/21/%E5%AE%89%E8%A3%85M2Crypto%E6%A8%A1%E5%9D%97%E8%AE%B0%E5%BD%95/)
+
+1. 私钥加密
+
+   ```python
+   # -*- coding:utf-8 -*-
+   import os
+   import M2Crypto
+   import base64
+   
+   def rsa_encrypt2(data):
+       """
+       RSA 私钥加密（分段）：1024bit的证书用100， 2048bit的证书用 200
+       """
+       public_key_path = os.path.join(PEM_PATH, 'private_key.pem')
+       rsa_pri = M2Crypto.RSA.load_key(public_key_path)
+   
+       num = None
+       output = ''
+       bit = conf.get('RSA', 'bit')
+       if bit == '1024':
+           num = 100
+       elif bit == '2048':
+           num = 200
+   
+       while data:
+           im_put = data[:num]
+           data = data[num:]
+           out = rsa_pri.private_encrypt(im_put, M2Crypto.RSA.pkcs1_padding)
+           output += out
+       pri_64 = base64.b64encode(output)
+       return pri_64
+   ```
+
+   
+
+2. 公钥解密
+
+   ```python
+   # -*- coding:utf-8 -*-
+   import os
+   import M2Crypto
+   import base64
+   
+   def rsa_decrypt2(data):
+       """
+       RSA 公钥解密（分段）：1024bit的证书用128，2048bit证书用256位
+       """
+       # base64解码
+       data = base64.b64decode(data)
+       public_key_path = os.path.join(PEM_PATH, 'public_key.pem')
+       rsa_pub = M2Crypto.RSA.load_pub_key(public_key_path)
+   
+       num = None
+       output = ''
+       bit = conf.get('RSA', 'bit')
+       if bit == '1024':
+           num = 128
+       elif bit == '2048':
+           num = 256
+   
+       while data:
+           in_put = data[:num]
+           data = data[num:]
+           out = rsa_pub.public_decrypt(in_put, M2Crypto.RSA.pkcs1_padding)
+           output = output + out
+   
+       return output
+   ```
+
+   
+
 ### 3. 分段加密和解密
 
 ==如果数据长度超过了当前秘钥的所能处理最大长度，则需要进行分段加密==
@@ -93,7 +167,7 @@ from Crypto.Cipher import PKCS1_v1_5
 
 def cipher(msg):
     """
-    公钥加密
+    公钥加密：1024bit的证书用100， 2048bit的证书用 200
     :param msg: 要加密内容
     :return:  加密之后的密文
     """
@@ -115,7 +189,7 @@ def cipher(msg):
 
 def decrypt(msg):
     """
-    私钥进行解密
+    私钥进行解密：1024bit的证书用128，2048bit证书用256位
     :param msg: 密文：字符串类型
     :return:  解密之后的内容
     """

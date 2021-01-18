@@ -79,6 +79,16 @@ Elasticsearch集群可以包含多个索引（数据库），每一个索引可�
 
 <img src="https://tupian-1300728887.cos.ap-chengdu.myqcloud.com/image-20200904171011154.png" alt="image-20200904171011154" style="zoom:67%;" />
 
+**基本操作**
+
+1. 查看所有索引
+
+   ```http
+   GET _cat/indices
+   ```
+
+2. 
+
 # 二、基本查询
 
 ## 空查询

@@ -1,6 +1,6 @@
 # 安装M2Crypto
 
-用于RSA公私钥加解密
+用于RSA公私钥加解密，需安装依赖openssl，CentOS用yum安装即可
 
 ## 在线安装
 
@@ -29,6 +29,8 @@
 3. 安装M2Crypto
 
    `pip install M2Crypto`
+
+
 
 rpm包下载网站：
 

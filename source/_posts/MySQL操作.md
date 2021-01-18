@@ -1,5 +1,5 @@
 ---
-title: MySQL操作
+title: MySQL概念及操作
 date: 2020-09-30 11:25:25
 tags: SQL
 top: 0

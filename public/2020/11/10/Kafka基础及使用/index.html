@@ -10,15 +10,15 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Kafka基础及使用Kafka命令行操作Topic 查看当前服务器中的所有topic bin&#x2F;kafka-topics.sh --zookeeper 127.0.0.1:2181 --list  创建topic bin&#x2F;kafka-topics.sh --zookeeper 127.0.0.1:2181 --create --replication-factor 3 --partitions 1">
+  <meta name="description" content="Kafka介绍Kafka是一个分布式流处理平台 流处理平台三大特性：  可以让你发布和订阅流式的记录。这一方面与消息队列或者企业消息系统类似。 可以储存流式的记录，并且有较好的容错性。 可以在流式记录产生时就进行处理。  Kafka的适用场景：  构造实时流数据管道，它可以在系统或应用之间可靠地获取数据。 (相当于message queue) 构建实时流式应用程序，对这些流数据进行转换或者影响。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka基础及使用">
 <meta property="og:url" content="http://lswgg.github.io/2020/11/10/Kafka%E5%9F%BA%E7%A1%80%E5%8F%8A%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="(*╹▽╹*)欢迎光临">
-<meta property="og:description" content="Kafka基础及使用Kafka命令行操作Topic 查看当前服务器中的所有topic bin&#x2F;kafka-topics.sh --zookeeper 127.0.0.1:2181 --list  创建topic bin&#x2F;kafka-topics.sh --zookeeper 127.0.0.1:2181 --create --replication-factor 3 --partitions 1">
+<meta property="og:description" content="Kafka介绍Kafka是一个分布式流处理平台 流处理平台三大特性：  可以让你发布和订阅流式的记录。这一方面与消息队列或者企业消息系统类似。 可以储存流式的记录，并且有较好的容错性。 可以在流式记录产生时就进行处理。  Kafka的适用场景：  构造实时流数据管道，它可以在系统或应用之间可靠地获取数据。 (相当于message queue) 构建实时流式应用程序，对这些流数据进行转换或者影响。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-10T10:02:44.000Z">
-<meta property="article:modified_time" content="2020-12-22T10:36:17.215Z">
+<meta property="article:modified_time" content="2020-12-28T06:07:57.130Z">
 <meta property="article:author" content="木子家❀">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -220,7 +220,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">259字</span>
+      <span class="post-count">694字</span>
     </span>
   </span>
 
@@ -229,7 +229,7 @@
     <span class="post-meta-item-icon">
       <i class="icon-book icon"></i>
       <span class="post-meta-item-text"> 阅读时长≈</span>
-      <span class="post-count">1分</span>
+      <span class="post-count">2分</span>
     </span>
   </span>
 </div>
@@ -240,7 +240,36 @@
   
   <div class="article-entry" itemprop="articleBody">
     
-    <h1 id="Kafka基础及使用"><a href="#Kafka基础及使用" class="headerlink" title="Kafka基础及使用"></a>Kafka基础及使用</h1><h1 id="Kafka命令行操作"><a href="#Kafka命令行操作" class="headerlink" title="Kafka命令行操作"></a>Kafka命令行操作</h1><h2 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h2><ol>
+    <h1 id="Kafka介绍"><a href="#Kafka介绍" class="headerlink" title="Kafka介绍"></a>Kafka介绍</h1><p><strong>Kafka是一个分布式流处理平台</strong></p>
+<p>流处理平台三大特性：</p>
+<ol>
+<li>可以让你发布和订阅流式的记录。这一方面与消息队列或者企业消息系统类似。</li>
+<li>可以储存流式的记录，并且有较好的容错性。</li>
+<li>可以在流式记录产生时就进行处理。</li>
+</ol>
+<p>Kafka的适用场景：</p>
+<ol>
+<li>构造实时流数据管道，它可以在系统或应用之间可靠地获取数据。 (相当于message queue)</li>
+<li>构建实时流式应用程序，对这些流数据进行转换或者影响。 (就是流处理，通过kafka stream topic和topic之间内部进行变化)</li>
+</ol>
+<p>概念：</p>
+<ul>
+<li>Kafka作为一个集群，运行在一台或者多台服务器上.</li>
+<li>Kafka 通过 <em>topic</em> 对存储的流数据进行分类。</li>
+<li>每条记录中包含一个key，一个value和一个timestamp（时间戳）。</li>
+</ul>
+<p>四个核心的API：</p>
+<ul>
+<li>The <a href="https://kafka.apachecn.org/documentation.html#producerapi" target="_blank" rel="noopener">Producer API</a> 允许一个应用程序发布一串流式的数据到一个或者多个Kafka topic。</li>
+<li>The <a href="https://kafka.apachecn.org/documentation.html#consumerapi" target="_blank" rel="noopener">Consumer API</a> 允许一个应用程序订阅一个或多个 topic ，并且对发布给他们的流式数据进行处理。</li>
+<li>The <a href="https://kafka.apachecn.org/documentation/streams" target="_blank" rel="noopener">Streams API</a> 允许一个应用程序作为一个<em>流处理器</em>，消费一个或者多个topic产生的输入流，然后生产一个输出流到一个或多个topic中去，在输入输出流中进行有效的转换。</li>
+<li>The <a href="https://kafka.apachecn.org/documentation.html#connect" target="_blank" rel="noopener">Connector API</a> 允许构建并运行可重用的生产者或者消费者，将Kafka topics连接到已存在的应用程序或者数据系统。比如，连接到一个关系型数据库，捕捉表（table）的所有变更内容。</li>
+</ul>
+<blockquote>
+<p>Kafka官方文档：</p>
+<p><a href="https://kafka.apachecn.org/documentation.html" target="_blank" rel="noopener">https://kafka.apachecn.org/documentation.html</a></p>
+</blockquote>
+<h1 id="Kafka命令行操作"><a href="#Kafka命令行操作" class="headerlink" title="Kafka命令行操作"></a>Kafka命令行操作</h1><h2 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h2><ol>
 <li><p>查看当前服务器中的所有topic</p>
 <p><code>bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --list</code></p>
 </li>
@@ -429,7 +458,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka基础及使用"><span class="toc-number">1.</span> <span class="toc-text">Kafka基础及使用</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka命令行操作"><span class="toc-number">2.</span> <span class="toc-text">Kafka命令行操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Topic"><span class="toc-number">2.1.</span> <span class="toc-text">Topic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消费者"><span class="toc-number">2.2.</span> <span class="toc-text">消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生产者"><span class="toc-number">2.3.</span> <span class="toc-text">生产者</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka介绍"><span class="toc-number">1.</span> <span class="toc-text">Kafka介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka命令行操作"><span class="toc-number">2.</span> <span class="toc-text">Kafka命令行操作</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Topic"><span class="toc-number">2.1.</span> <span class="toc-text">Topic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消费者"><span class="toc-number">2.2.</span> <span class="toc-text">消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生产者"><span class="toc-number">2.3.</span> <span class="toc-text">生产者</span></a></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -597,14 +626,6 @@
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -613,7 +634,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ES</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -621,15 +642,23 @@
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">ES</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">Luck</a>
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">Luck</a>
               </li>
              
               <li class="article-tag-list-item">
