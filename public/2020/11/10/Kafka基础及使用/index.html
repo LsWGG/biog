@@ -10,15 +10,15 @@
   <meta name="generator" content="hexo-theme-yilia-plus">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   
-  <meta name="description" content="Kafka介绍Kafka是一个分布式流处理平台 流处理平台三大特性：  可以让你发布和订阅流式的记录。这一方面与消息队列或者企业消息系统类似。 可以储存流式的记录，并且有较好的容错性。 可以在流式记录产生时就进行处理。  Kafka的适用场景：  构造实时流数据管道，它可以在系统或应用之间可靠地获取数据。 (相当于message queue) 构建实时流式应用程序，对这些流数据进行转换或者影响。">
+  <meta name="description" content="Kafka介绍Kafka是一个分布式流处理平台 流处理平台三大特性：  可以让你发布和订阅流式的记录。这一方面与消息队列或者企业消息系统类似。 可以储存流式的记录，并且有较好的容错性。 可以在流式记录产生时就进行处理。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Kafka基础及使用">
 <meta property="og:url" content="http://lswgg.github.io/2020/11/10/Kafka%E5%9F%BA%E7%A1%80%E5%8F%8A%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="(*╹▽╹*)欢迎光临">
-<meta property="og:description" content="Kafka介绍Kafka是一个分布式流处理平台 流处理平台三大特性：  可以让你发布和订阅流式的记录。这一方面与消息队列或者企业消息系统类似。 可以储存流式的记录，并且有较好的容错性。 可以在流式记录产生时就进行处理。  Kafka的适用场景：  构造实时流数据管道，它可以在系统或应用之间可靠地获取数据。 (相当于message queue) 构建实时流式应用程序，对这些流数据进行转换或者影响。">
+<meta property="og:description" content="Kafka介绍Kafka是一个分布式流处理平台 流处理平台三大特性：  可以让你发布和订阅流式的记录。这一方面与消息队列或者企业消息系统类似。 可以储存流式的记录，并且有较好的容错性。 可以在流式记录产生时就进行处理。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-11-10T10:02:44.000Z">
-<meta property="article:modified_time" content="2020-12-28T06:07:57.130Z">
+<meta property="article:modified_time" content="2020-12-31T10:03:41.190Z">
 <meta property="article:author" content="木子家❀">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -47,6 +47,22 @@
  	  <script src="/lib/clickLove.js"></script>
   
   
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
 
 
   
@@ -247,6 +263,8 @@
 <li>可以储存流式的记录，并且有较好的容错性。</li>
 <li>可以在流式记录产生时就进行处理。</li>
 </ol>
+<a id="more"></a>
+
 <p>Kafka的适用场景：</p>
 <ol>
 <li>构造实时流数据管道，它可以在系统或应用之间可靠地获取数据。 (相当于message queue)</li>
@@ -275,14 +293,18 @@
 </li>
 <li><p>创建topic</p>
 <p><code>bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --create --replication-factor 3 --partitions 1 --topic test</code></p>
-<a id="more"></a>
-
 <ul>
 <li>topic 定义topic名</li>
-<li>replication-factor 定义副本数</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>replication-factor 定义副本数<ul>
 <li>partitions 定义分区数</li>
 </ul>
 </li>
+</ul>
+<ol start="3">
 <li><p>删除topic</p>
 <p><code>bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --delete --topic test</code></p>
 </li>
@@ -515,7 +537,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019-2020 <a href="http://LsWGG.github.io/" target="_blank">木子家❀</a>
+    		&copy; 2019-2021 <a href="http://LsWGG.github.io/" target="_blank">木子家❀</a>
     	</div>
       	<div class="footer-right">
 			
@@ -630,23 +652,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">tool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NoSQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ES</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -654,11 +660,27 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color3">ES</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NoSQL</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Luck</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -802,67 +824,7 @@
   <!-- <script async type="text/javascript" size="90" alpha="0.2" zIndex="0" src="/plugins/ribbon.js/ribbon.min.js"></script> -->
   
   
-    <script type="text/javascript" src="/plugins/live2d-widget.js/L2Dwidget.min.js"></script>
-<script type="text/javascript">
-  /**
-   * 完整配置请参考：https://l2dwidget.js.org/docs/class/src/index.js~L2Dwidget.html#instance-method-init
-   */
-  var pluginModelPath = "assets/", // 模型的文件路径，无需更改
-    pluginRootPath = "/live2d_models/"; // 插件的路径，无需更改
-  //特定的模型json文件名称
-  var modelPathJson = {
-    "epsilon2_1": "Epsilon2.1",
-    "gf": "Gantzert_Felixander",
-    "haru/01": "haru01",
-    "haru/02": "haru02",
-    "nietzsche": "nietzche"
-  }
-
   
-    var modelName = "hijiki";
-  
-
-  var modelJsonPath = "";
-  if (modelPathJson[modelName]) {
-    modelJsonPath = pluginRootPath + modelName + "/" + pluginModelPath + modelPathJson[modelName] +
-      ".model.json";
-  } else {
-    modelJsonPath = pluginRootPath + modelName + "/" + pluginModelPath + modelName + ".model.json";
-  }
-  L2Dwidget.init({
-    model: {
-      jsonPath: modelJsonPath
-    },
-    display: {
-       position: "right", 
-       width: 145, 
-       height: 315, 
-       hOffset: 50, 
-      
-    },
-    mobile: {
-      
-       scale: 0.6 
-    },
-    react: {
-       opacity: 0.8 
-    }
-  })
-
-</script>
-
-  
-  
-  <script type="text/javascript" src="/lib/snow.js"></script>
-  <script type="text/javascript" src="/lib/jquery-2.1.4.min.js"></script>
-  <script>
-    snow.down();
-    $(window).resize(function() {
-      $("canvas").css("z-index","500").remove();
-      snow.down();
-    });
-  </script>
-  
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</body>
 
 </html>

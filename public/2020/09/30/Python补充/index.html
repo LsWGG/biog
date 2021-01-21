@@ -18,7 +18,7 @@
 <meta property="og:description" content="python中的魔法方法123456789__init__(self)	# 在创建一个对象是默认被调用，不需要手动调用__str__(self)	# 用来显示信息，需要return一个数据__del__(self)	# 当删除对象时，默认被调用__new__(self)	# 才是实例化对象调用的第一个方法，它只取下 cls 参数，并把 其他参数传给 __init____call__(self)	#">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2020-09-30T08:14:15.000Z">
-<meta property="article:modified_time" content="2020-09-30T08:45:18.861Z">
+<meta property="article:modified_time" content="2021-01-19T07:43:00.318Z">
 <meta property="article:author" content="木子家❀">
 <meta property="article:tag" content="Python">
 <meta name="twitter:card" content="summary">
@@ -47,6 +47,22 @@
  	  <script src="/lib/clickLove.js"></script>
   
   
+
+<script>
+  (function () {
+    var bp = document.createElement('script');
+    var curProtocol = window.location.protocol.split(':')[0];
+    if (curProtocol === 'https') {
+      bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+    } else {
+      bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+    }
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(bp, s);
+  })();
+
+</script>
+
 
 
   
@@ -220,7 +236,7 @@
       <!-- 百度字体平台:http://fontstore.baidu.com/static/editor/index.html -->
       <i class="icon-statistics"></i>
       <span class="post-meta-item-text"> 字数统计:</span>
-      <span class="post-count">530字</span>
+      <span class="post-count">560字</span>
     </span>
   </span>
 
@@ -270,6 +286,7 @@
 <h2 id="装饰器"><a href="#装饰器" class="headerlink" title="装饰器"></a>装饰器</h2><p>作用：在不改变已有函数源代码及调用方式的前提下，对已有函数进行功能的扩展</p>
 <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 不改变原有函数__name__\备注信息</span></span><br><span class="line"><span class="keyword">from</span> functools <span class="keyword">import</span> wraps</span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">check</span><span class="params">(fu)</span>:</span>  <span class="comment"># fu:目标函数</span></span><br><span class="line">    </span><br><span class="line"><span class="meta">    @wraps(fu)</span></span><br><span class="line">    <span class="function"><span class="keyword">def</span> <span class="title">inner</span><span class="params">()</span>:</span></span><br><span class="line">        <span class="string">'''执行函数之前'''</span></span><br><span class="line">        fu()</span><br><span class="line">        <span class="string">'''执行函数之后'''</span></span><br><span class="line">    <span class="keyword">return</span> inner</span><br><span class="line"></span><br><span class="line"><span class="comment"># 语法糖写法</span></span><br><span class="line"><span class="meta">@check</span></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">comment</span><span class="params">()</span>:</span></span><br><span class="line">    print(<span class="string">'发表评论'</span>)</span><br><span class="line">    </span><br><span class="line">comment()</span><br><span class="line"><span class="comment"># check等价与  comment = check(comment)</span></span><br></pre></td></tr></table></figure>
 
+<h2 id="python列表中的字典按某个字段排序"><a href="#python列表中的字典按某个字段排序" class="headerlink" title="python列表中的字典按某个字段排序"></a>python列表中的字典按某个字段排序</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># healths列表名，sort是字段名</span></span><br><span class="line">health = sorted(healths, key=<span class="keyword">lambda</span> k: k[<span class="string">'sort'</span>])</span><br></pre></td></tr></table></figure>
     
 
     
@@ -414,7 +431,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#python中的魔法方法"><span class="toc-number">1.</span> <span class="toc-text">python中的魔法方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可变与不可变类型"><span class="toc-number">2.</span> <span class="toc-text">可变与不可变类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序"><span class="toc-number">3.</span> <span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#is和-的区别"><span class="toc-number">4.</span> <span class="toc-text">is和&#x3D;&#x3D;的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python默认递归限制1000or998"><span class="toc-number">5.</span> <span class="toc-text">python默认递归限制1000or998</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据量大情况下Paginator的缺点"><span class="toc-number">6.</span> <span class="toc-text">数据量大情况下Paginator的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#装饰器"><span class="toc-number">7.</span> <span class="toc-text">装饰器</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#python中的魔法方法"><span class="toc-number">1.</span> <span class="toc-text">python中的魔法方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#可变与不可变类型"><span class="toc-number">2.</span> <span class="toc-text">可变与不可变类型</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#冒泡排序"><span class="toc-number">3.</span> <span class="toc-text">冒泡排序</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#is和-的区别"><span class="toc-number">4.</span> <span class="toc-text">is和&#x3D;&#x3D;的区别</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python默认递归限制1000or998"><span class="toc-number">5.</span> <span class="toc-text">python默认递归限制1000or998</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据量大情况下Paginator的缺点"><span class="toc-number">6.</span> <span class="toc-text">数据量大情况下Paginator的缺点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#装饰器"><span class="toc-number">7.</span> <span class="toc-text">装饰器</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#python列表中的字典按某个字段排序"><span class="toc-number">8.</span> <span class="toc-text">python列表中的字典按某个字段排序</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -471,7 +488,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2019-2020 <a href="http://LsWGG.github.io/" target="_blank">木子家❀</a>
+    		&copy; 2019-2021 <a href="http://LsWGG.github.io/" target="_blank">木子家❀</a>
     	</div>
       	<div class="footer-right">
 			
@@ -586,23 +603,7 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">tool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">NoSQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">ES</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -610,11 +611,27 @@
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color3">ES</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">NoSQL</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">Luck</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -758,67 +775,7 @@
   <!-- <script async type="text/javascript" size="90" alpha="0.2" zIndex="0" src="/plugins/ribbon.js/ribbon.min.js"></script> -->
   
   
-    <script type="text/javascript" src="/plugins/live2d-widget.js/L2Dwidget.min.js"></script>
-<script type="text/javascript">
-  /**
-   * 完整配置请参考：https://l2dwidget.js.org/docs/class/src/index.js~L2Dwidget.html#instance-method-init
-   */
-  var pluginModelPath = "assets/", // 模型的文件路径，无需更改
-    pluginRootPath = "/live2d_models/"; // 插件的路径，无需更改
-  //特定的模型json文件名称
-  var modelPathJson = {
-    "epsilon2_1": "Epsilon2.1",
-    "gf": "Gantzert_Felixander",
-    "haru/01": "haru01",
-    "haru/02": "haru02",
-    "nietzsche": "nietzche"
-  }
-
   
-    var modelName = "hijiki";
-  
-
-  var modelJsonPath = "";
-  if (modelPathJson[modelName]) {
-    modelJsonPath = pluginRootPath + modelName + "/" + pluginModelPath + modelPathJson[modelName] +
-      ".model.json";
-  } else {
-    modelJsonPath = pluginRootPath + modelName + "/" + pluginModelPath + modelName + ".model.json";
-  }
-  L2Dwidget.init({
-    model: {
-      jsonPath: modelJsonPath
-    },
-    display: {
-       position: "right", 
-       width: 145, 
-       height: 315, 
-       hOffset: 50, 
-      
-    },
-    mobile: {
-      
-       scale: 0.6 
-    },
-    react: {
-       opacity: 0.8 
-    }
-  })
-
-</script>
-
-  
-  
-  <script type="text/javascript" src="/lib/snow.js"></script>
-  <script type="text/javascript" src="/lib/jquery-2.1.4.min.js"></script>
-  <script>
-    snow.down();
-    $(window).resize(function() {
-      $("canvas").css("z-index","500").remove();
-      snow.down();
-    });
-  </script>
-  
-<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"log":false,"pluginJsPath":"lib/","pluginModelPath":"assets/","pluginRootPath":"live2dw/","tagMode":false});</script></body>
+</body>
 
 </html>

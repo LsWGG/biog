@@ -83,3 +83,10 @@ def comment():
 comment()
 # check等价与  comment = check(comment)
 ```
+
+## python列表中的字典按某个字段排序
+
+```python
+# healths列表名，sort是字段名
+health = sorted(healths, key=lambda k: k['sort'])
+```
