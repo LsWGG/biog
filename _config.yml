@@ -90,13 +90,13 @@ ignore:
 # Extensions
 ## Plugins: https://hexo.io/plugins/
 ## Themes: https://hexo.io/themes/
-theme: yilia-plus
+theme: yilia
 
 # Deployment
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://github.com/LsWGG/LsWGG.github.io.git
+  repo: root@82.156.102.154:/var/repo/blog.git
   branch: master
 
 jsonContent:
