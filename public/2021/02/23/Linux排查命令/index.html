@@ -6,22 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LsWGG.github.io">
-  <title>Tag: Linux | (*╹▽╹*)欢迎光临</title>
+  <title>Linux排查命令 | (*╹▽╹*)欢迎光临</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="(*╹▽╹*)欢迎光临">
-<meta property="og:url" content="http://lswgg.github.io/tags/Linux/index.html">
+  <meta name="description" content="ES相关_cat命令是系统信息查询相关的，下面分成好几个子命令分类。curl -XGET http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat  查看ES节点是否正常：curl http:&#x2F;&#x2F;127.0.0.1:9200 查看集群健康状态：curl http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;health?v 查看全部索引：curl http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Linux排查命令">
+<meta property="og:url" content="http://lswgg.github.io/2021/02/23/Linux%E6%8E%92%E6%9F%A5%E5%91%BD%E4%BB%A4/index.html">
 <meta property="og:site_name" content="(*╹▽╹*)欢迎光临">
+<meta property="og:description" content="ES相关_cat命令是系统信息查询相关的，下面分成好几个子命令分类。curl -XGET http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat  查看ES节点是否正常：curl http:&#x2F;&#x2F;127.0.0.1:9200 查看集群健康状态：curl http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;health?v 查看全部索引：curl http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-23T03:28:31.000Z">
+<meta property="article:modified_time" content="2021-02-25T03:34:15.581Z">
 <meta property="article:author" content="木子家❀">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content=" Linux">
-<meta property="article:tag" content=" Django">
-<meta property="article:tag" content=" Web">
-<meta property="article:tag" content=" 测试">
-<meta property="article:tag" content=" NoSQL">
-<meta property="article:tag" content=" ES">
-<meta property="article:tag" content=" Luck">
+<meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="(*╹▽╹*)欢迎光临" type="application/atom+xml">
@@ -173,37 +170,166 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
+            <article id="post-Linux排查命令" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class=" article-header">
+
+  <!-- 
+  
+    <h1 class="article-title" itemprop="name">
+      Linux排查命令
+    </h1>
+  
+ -->
   
   
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
+	<!-- 不蒜子统计 -->
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
+
 <a href="/2021/02/23/Linux%E6%8E%92%E6%9F%A5%E5%91%BD%E4%BB%A4/" class="archive-article-date">
   	<time datetime="2021-02-23T03:28:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-23</time>
 </a>
-        </div>
-    	 
+  <!-- 开始添加字数统计-->
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/23/Linux%E6%8E%92%E6%9F%A5%E5%91%BD%E4%BB%A4/">Linux排查命令</a>
+  <div style="margin-top:10px;">
+        <span class="post-time">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-keyboard-o"></i>
+            <span class="post-meta-item-text">  字数统计: </span>
+            <span class="post-count">592字</span>
+          </span>
+        </span>
+    
+        <span class="post-time">
+          &nbsp; | &nbsp;
+          <span class="post-meta-item-icon">
+            <i class="fa fa-hourglass-half"></i>
+            <span class="post-meta-item-text">  阅读时长: </span>
+            <span class="post-count">2分</span>
+          </span>
+        </span>
+    </div>
+  
+  <!-- 添加完成 -->
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    <center>
+      <p>
+  
+    <h1 class="article-title_code_ant" itemprop="name">
+      Linux排查命令
     </h1>
   
+</p>
+    </center>
+    
+    <h1 id="ES相关"><a href="#ES相关" class="headerlink" title="ES相关"></a>ES相关</h1><p>_cat命令是系统信息查询相关的，下面分成好几个子命令分类。<br>curl -XGET <a href="http://127.0.0.1:9200/_cat" target="_blank" rel="noopener">http://127.0.0.1:9200/_cat</a></p>
+<ol>
+<li>查看ES节点是否正常：curl <a href="http://127.0.0.1:9200" target="_blank" rel="noopener">http://127.0.0.1:9200</a></li>
+<li>查看集群健康状态：curl <a href="http://127.0.0.1:9200/_cat/health?v" target="_blank" rel="noopener">http://127.0.0.1:9200/_cat/health?v</a></li>
+<li>查看全部索引：curl <a href="http://127.0.0.1:9200/_cat/indices?v" target="_blank" rel="noopener">http://127.0.0.1:9200/_cat/indices?v</a></li>
+<li>创建索引：curl -XPUT <a href="http://127.0.0.1:9200/my_new_index" target="_blank" rel="noopener">http://127.0.0.1:9200/my_new_index</a></li>
+<li>删除索引：curl -XDELETE localhost:9200/example1?pretty</li>
+<li>插入数据：curl -XPUT <a href="http://127.0.0.1:9200/my_new_index/user/1?pretty" target="_blank" rel="noopener">http://127.0.0.1:9200/my_new_index/user/1?pretty</a> -d  ‘{“name”:”张三”,”age”:”23”}’</li>
+</ol>
+<a id="more"></a>
 
-        <div class="article-info info-on-right">
-          
+<h1 id="Kafka相关"><a href="#Kafka相关" class="headerlink" title="Kafka相关"></a>Kafka相关</h1><h2 id="Topic"><a href="#Topic" class="headerlink" title="Topic"></a>Topic</h2><ol>
+<li><p>查看当前服务器中的所有topic</p>
+<p><code>bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --list</code></p>
+</li>
+<li><p>创建topic</p>
+<p><code>bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --create --replication-factor 3 --partitions 1 --topic test</code></p>
+<ul>
+<li>topic 定义topic名</li>
+</ul>
+</li>
+</ol>
+<ul>
+<li>replication-factor 定义副本数<ul>
+<li>partitions 定义分区数</li>
+</ul>
+</li>
+</ul>
+<ol start="3">
+<li><p>删除topic</p>
+<p><code>bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --delete --topic test</code></p>
+</li>
+<li><p>查看某个Topic的详情</p>
+<p><code>bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --describe --topic test</code></p>
+</li>
+</ol>
+<h2 id="消费者"><a href="#消费者" class="headerlink" title="消费者"></a>消费者</h2><ol>
+<li><p>消费消息</p>
+<p><code>bin/kafka-console-consumer.sh --bootstrap-server 127.0.0.1:9092 --from-beginning --topic test</code></p>
+<ul>
+<li>from-beginning：会把first主题中以往所有的数据都读取出来。根据业务场景选择是否增加该配置。</li>
+<li>bootstrap-server：生产消息的服务器</li>
+</ul>
+</li>
+<li><p>查看消费组</p>
+<p><code>bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092 --list</code></p>
+</li>
+<li><p>查看某个消费组的详情</p>
+<p><code>bin/kafka-consumer-groups.sh --bootstrap-server 127.0.0.1:9092  --group test-consumer-group --describe</code></p>
+<ul>
+<li>查看组名为test-consumer-group的消费组的情况。</li>
+</ul>
+</li>
+</ol>
+<h2 id="生产者"><a href="#生产者" class="headerlink" title="生产者"></a>生产者</h2><ol>
+<li><p>发送消息</p>
+<p><code>bin/kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic test</code></p>
+</li>
+</ol>
+<h1 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h1><h2 id="SSH"><a href="#SSH" class="headerlink" title="SSH"></a>SSH</h2><ol>
+<li>查看ssh服务是否正常开启：systemctl status sshd</li>
+<li>重启ssh服务：systemctl status sshd</li>
+<li>查看ssh开放端口：netstat -tnlp |grep ssh</li>
+</ol>
+<h2 id="网卡"><a href="#网卡" class="headerlink" title="网卡"></a>网卡</h2><ol>
+<li>重启网卡：systemctl restart network</li>
+<li>查看本机网关：route -n</li>
+<li>查看DNS：cat /etc/resolv.conf</li>
+</ol>
+<h2 id="进程、端口"><a href="#进程、端口" class="headerlink" title="进程、端口"></a>进程、端口</h2><ol>
+<li>对外开放tcp端口：iptables -I INPUT -p tcp –dport port -j ACCEPT</li>
+<li>查看防火墙开放的端口：firewall-cmd –zone=public –list-ports</li>
+<li>关闭防火墙：systemctl stop firewalld.service</li>
+<li>查看防火墙状态： firewall-cmd –state</li>
+<li>查看监听的端口：netstat -lnpt</li>
+</ol>
+<h1 id="硬件相关"><a href="#硬件相关" class="headerlink" title="硬件相关"></a>硬件相关</h1><ol>
+<li><p>查看物理CPU个数</p>
+<p> <code>cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</code></p>
+</li>
+<li><p>查看硬盘：df -h</p>
+</li>
+<li><p>查看内存：free -g</p>
+</li>
+</ol>
+<h1 id="Python相关"><a href="#Python相关" class="headerlink" title="Python相关"></a>Python相关</h1><ol>
+<li>编译pyc：</li>
+<li>快速启动web服务：python -m SimpleHTTPServer</li>
+</ol>
+<h1 id="安全日志"><a href="#安全日志" class="headerlink" title="安全日志"></a>安全日志</h1><ol>
+<li>成功登录用户：/var/log/wtmp</li>
+<li>尝试登录信息：/var/log/btmp</li>
+<li>显示最近登录信息：/var/log/lastlog</li>
+</ol>
+
+    
+
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -215,156 +341,156 @@
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://lswgg.github.io/2021/02/23/Linux%E6%8E%92%E6%9F%A5%E5%91%BD%E4%BB%A4/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
+    <a href="/2021/02/24/ES%E4%B9%8BDSL%E5%BA%93%E4%BD%BF%E7%94%A8/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          ES之DSL库使用
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2020/12/24/CentOS%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8Cpython%E7%A8%8B%E5%BA%8F/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">CentOS后台运行python程序</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/12/24/CentOS%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8Cpython%E7%A8%8B%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-12-24T08:52:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-24</time>
-</a>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ES相关"><span class="toc-number">1.</span> <span class="toc-text">ES相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka相关"><span class="toc-number">2.</span> <span class="toc-text">Kafka相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Topic"><span class="toc-number">2.1.</span> <span class="toc-text">Topic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消费者"><span class="toc-number">2.2.</span> <span class="toc-text">消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生产者"><span class="toc-number">2.3.</span> <span class="toc-text">生产者</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络相关"><span class="toc-number">3.</span> <span class="toc-text">网络相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH"><span class="toc-number">3.1.</span> <span class="toc-text">SSH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网卡"><span class="toc-number">3.2.</span> <span class="toc-text">网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程、端口"><span class="toc-number">3.3.</span> <span class="toc-text">进程、端口</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#硬件相关"><span class="toc-number">4.</span> <span class="toc-text">硬件相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python相关"><span class="toc-number">5.</span> <span class="toc-text">Python相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全日志"><span class="toc-number">6.</span> <span class="toc-text">安全日志</span></a></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/24/CentOS%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8Cpython%E7%A8%8B%E5%BA%8F/">CentOS后台运行python程序</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/12/01/Centos%E5%BC%80%E6%94%BE%E5%8F%8A%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3/" class="archive-article-date">
-  	<time datetime="2020-12-01T06:12:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/01/Centos%E5%BC%80%E6%94%BE%E5%8F%8A%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3/">Centos开放及查看端口</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/12/02/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2019-12-02T08:12:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/02/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">Linux基础命令</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
+  
+      <section id="comments" class="comments">
+        <style>
+          .comments{margin:30px;padding:10px;background:#fff}
+          @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+        </style>
+        <div id="vcomment" class="comment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var notify = 'false' == true ? true : false;
+  var verify = 'false' == true ? true : false;
+  new Valine({
+    av: AV,
+    el: '#vcomment',
+    notify: notify,
+    app_id: "akSt17hH0QhogvnWpUpEWLnX-gzGzoHsz",
+    app_key: "uUDT4jx91daFAfOzduaGbcQu",
+    placeholder: "Just go go",
+    avatar: "mm",
+  });
+</script>
+    </section>
+  
 
 
           </div>
@@ -397,9 +523,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,

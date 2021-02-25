@@ -6,22 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://LsWGG.github.io">
-  <title>Tag: Linux | (*╹▽╹*)欢迎光临</title>
+  <title>ES之DSL库使用 | (*╹▽╹*)欢迎光临</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="(*╹▽╹*)欢迎光临">
-<meta property="og:url" content="http://lswgg.github.io/tags/Linux/index.html">
+  <meta name="description" content="什么是elasticsearch_dslJSON DSL缺点：字段冗长，容易出现语法错误，如不正确的嵌套，难以修改（如添加另一个过滤器） 摒弃传统的JSON DSL语句，将其封装为python类。提供了更方便的方式，来编写和操作查询">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES之DSL库使用">
+<meta property="og:url" content="http://lswgg.github.io/2021/02/24/ES%E4%B9%8BDSL%E5%BA%93%E4%BD%BF%E7%94%A8/index.html">
 <meta property="og:site_name" content="(*╹▽╹*)欢迎光临">
+<meta property="og:description" content="什么是elasticsearch_dslJSON DSL缺点：字段冗长，容易出现语法错误，如不正确的嵌套，难以修改（如添加另一个过滤器） 摒弃传统的JSON DSL语句，将其封装为python类。提供了更方便的方式，来编写和操作查询">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-02-24T08:15:34.000Z">
+<meta property="article:modified_time" content="2021-02-25T02:59:55.825Z">
 <meta property="article:author" content="木子家❀">
-<meta property="article:tag" content="Python">
-<meta property="article:tag" content=" Linux">
-<meta property="article:tag" content=" Django">
-<meta property="article:tag" content=" Web">
-<meta property="article:tag" content=" 测试">
-<meta property="article:tag" content=" NoSQL">
-<meta property="article:tag" content=" ES">
-<meta property="article:tag" content=" Luck">
+<meta property="article:tag" content="ES">
 <meta name="twitter:card" content="summary">
   
     <link rel="alternative" href="/atom.xml" title="(*╹▽╹*)欢迎光临" type="application/atom+xml">
@@ -173,198 +170,247 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-ES之DSL库使用" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2021" class="archive-year">2021</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2021/02/23/Linux%E6%8E%92%E6%9F%A5%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2021-02-23T03:28:31.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-23</time>
-</a>
-        </div>
-    	 
+      <header class=" article-header">
+
+  <!-- 
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2021/02/23/Linux%E6%8E%92%E6%9F%A5%E5%91%BD%E4%BB%A4/">Linux排查命令</a>
+    <h1 class="article-title" itemprop="name">
+      ES之DSL库使用
     </h1>
   
+ -->
+  
+  
+	<!-- 不蒜子统计 -->
+	<span id="busuanzi_container_page_pv" style='display:none' class="archive-article-date">
+		  <i class="icon-smile icon"></i> 阅读数：<span id="busuanzi_value_page_pv"></span>次
+	</span>
 
-        <div class="article-info info-on-right">
-          
+<a href="/2021/02/24/ES%E4%B9%8BDSL%E5%BA%93%E4%BD%BF%E7%94%A8/" class="archive-article-date">
+  	<time datetime="2021-02-24T08:15:34.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2021-02-24</time>
+</a>
+  <!-- 开始添加字数统计-->
+  
+  <div style="margin-top:10px;">
+        <span class="post-time">
+          <span class="post-meta-item-icon">
+            <i class="fa fa-keyboard-o"></i>
+            <span class="post-meta-item-text">  字数统计: </span>
+            <span class="post-count">502字</span>
+          </span>
+        </span>
+    
+        <span class="post-time">
+          &nbsp; | &nbsp;
+          <span class="post-meta-item-icon">
+            <i class="fa fa-hourglass-half"></i>
+            <span class="post-meta-item-text">  阅读时长: </span>
+            <span class="post-count">2分</span>
+          </span>
+        </span>
+    </div>
+  
+  <!-- 添加完成 -->
+  
+  </header>
+  
+  <div class="article-entry" itemprop="articleBody">
+    <center>
+      <p>
+  
+    <h1 class="article-title_code_ant" itemprop="name">
+      ES之DSL库使用
+    </h1>
+  
+</p>
+    </center>
+    
+    <h1 id="什么是elasticsearch-dsl"><a href="#什么是elasticsearch-dsl" class="headerlink" title="什么是elasticsearch_dsl"></a>什么是elasticsearch_dsl</h1><p>JSON DSL缺点：字段冗长，容易出现语法错误，如不正确的嵌套，难以修改（如添加另一个过滤器）</p>
+<p>摒弃传统的JSON DSL语句，将其封装为python类。提供了更方便的方式，来编写和操作查询</p>
+<a id="more"></a>
+
+<h2 id="创建连接"><a href="#创建连接" class="headerlink" title="创建连接"></a>创建连接</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> elasticsearch <span class="keyword">import</span> Elasticsearch</span><br><span class="line"><span class="keyword">from</span> elasticsearch_dsl <span class="keyword">import</span> Search</span><br><span class="line"></span><br><span class="line">es = Elasticsearch(hosts=<span class="string">"127.0.0.1:9200"</span>)</span><br><span class="line">s = Search(using=es, index=<span class="string">"teset_index"</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="基本查询（Q方法）"><a href="#基本查询（Q方法）" class="headerlink" title="基本查询（Q方法）"></a>基本查询（Q方法）</h2><h3 id="query"><a href="#query" class="headerlink" title="query"></a>query</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实例化对象略</span></span><br><span class="line">s = s.query(<span class="string">"multi_match"</span>, query=<span class="string">'python django'</span>, fields=[<span class="string">'title'</span>, <span class="string">'body'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价于</span></span><br><span class="line"><span class="keyword">from</span> elasticsearch_dsl <span class="keyword">import</span> Search, Q</span><br><span class="line">q = Q(<span class="string">"multi_match"</span>, query=<span class="string">'python django'</span>, fields=[<span class="string">'title'</span>, <span class="string">'body'</span>])</span><br><span class="line">res = s.query(q)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查询结果，转为dict</span></span><br><span class="line">data = res.execute().to_dict()</span><br><span class="line"><span class="comment"># 删除符合条件的文档</span></span><br><span class="line">response = res.delete()</span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON DSL</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"query"</span>: &#123;</span><br><span class="line">    <span class="string">"multi_match"</span>: &#123;</span><br><span class="line">      <span class="string">"query"</span>: <span class="string">"python django"</span>, </span><br><span class="line">      <span class="string">"fields"</span>: [</span><br><span class="line">        <span class="string">"title"</span>, </span><br><span class="line">        <span class="string">"body"</span></span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="组合查询"><a href="#组合查询" class="headerlink" title="组合查询"></a>组合查询</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">Q(<span class="string">"match"</span>, title=<span class="string">'python'</span>) | Q(<span class="string">"match"</span>, title=<span class="string">'django'</span>)</span><br><span class="line"><span class="comment"># &#123;"bool": &#123;"should": [...]&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">Q(<span class="string">"match"</span>, title=<span class="string">'python'</span>) &amp; Q(<span class="string">"match"</span>, title=<span class="string">'django'</span>)</span><br><span class="line"><span class="comment"># &#123;"bool": &#123;"must": [...]&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">~Q(<span class="string">"match"</span>, title=<span class="string">"python"</span>)</span><br><span class="line"><span class="comment"># &#123;"bool": &#123;"must_not": [...]&#125;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实例化对象略</span></span><br><span class="line">s = s.filter(<span class="string">'terms'</span>, tags=[<span class="string">'search'</span>, <span class="string">'python'</span>])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价于</span></span><br><span class="line">s = s.query(<span class="string">'bool'</span>, filter=[Q(<span class="string">'terms'</span>, tags=[<span class="string">'search'</span>, <span class="string">'python'</span>])])</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价于（调用Q方法）</span></span><br><span class="line"><span class="keyword">from</span> elasticsearch_dsl <span class="keyword">import</span> Search, Q</span><br><span class="line">q = Q(<span class="string">'terms'</span>, tags=[<span class="string">'search'</span>, <span class="string">'python'</span>])</span><br><span class="line">s = s.filter(q)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON DSL</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"query"</span>: &#123;</span><br><span class="line">    <span class="string">"bool"</span>: &#123;</span><br><span class="line">      <span class="string">"filter"</span>: [</span><br><span class="line">        &#123;</span><br><span class="line">          <span class="string">"terms"</span>: &#123;</span><br><span class="line">            <span class="string">"tags"</span>: [</span><br><span class="line">              <span class="string">"search"</span>, </span><br><span class="line">              <span class="string">"python"</span></span><br><span class="line">            ]</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      ]</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="分页"><a href="#分页" class="headerlink" title="分页"></a>分页</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实例化对象略</span></span><br><span class="line">s = s[<span class="number">0</span>: <span class="number">10</span>]</span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON DSL</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="string">"from"</span>: <span class="number">0</span>, </span><br><span class="line">    <span class="string">"size"</span>: <span class="number">10</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h3><p>位置参数（-）：表示按该字段降序</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实例化对象略</span></span><br><span class="line">s = s.sort(<span class="string">'-start_time'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON DSL</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"sort"</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="string">"start_time"</span>: &#123;</span><br><span class="line">        <span class="string">"order"</span>: <span class="string">"desc"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="聚合查询（A方法）"><a href="#聚合查询（A方法）" class="headerlink" title="聚合查询（A方法）"></a>聚合查询（A方法）</h2><h3 id="桶（bucket）"><a href="#桶（bucket）" class="headerlink" title="桶（bucket）"></a>桶（bucket）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> elasticsearch_dsl <span class="keyword">import</span> A</span><br><span class="line"></span><br><span class="line"><span class="comment"># 实例化对象略</span></span><br><span class="line">a = A(<span class="string">'terms'</span>, field=<span class="string">'category'</span>)</span><br><span class="line">s.aggs.bucket(<span class="string">'category_terms'</span>, a)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 等价于</span></span><br><span class="line">s.aggs.bucker(<span class="string">'category_terms'</span>, <span class="string">'terms'</span>, field=<span class="string">'category'</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON DSL</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"aggs"</span>: &#123;</span><br><span class="line">    <span class="string">"category_terms"</span>: &#123;</span><br><span class="line">      <span class="string">"terms"</span>: &#123;</span><br><span class="line">        <span class="string">"field"</span>: <span class="string">"category"</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"># =======聚合嵌套=======</span></span><br><span class="line">s.aggs.bucket(<span class="string">"groupDate"</span>, <span class="string">"date_histogram"</span>, field=<span class="string">"update_time"</span>, interval=<span class="string">"1d"</span>, format=<span class="string">"yyyy-MM-dd"</span>)\</span><br><span class="line">    .bucket(<span class="string">"op_agg"</span>, <span class="string">"terms"</span>, field=<span class="string">"op_state"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON DSL</span></span><br><span class="line">&#123;</span><br><span class="line"><span class="string">"aggs"</span>: &#123;</span><br><span class="line">    <span class="string">"groupDate"</span>: &#123;</span><br><span class="line">      <span class="string">"date_histogram"</span>: &#123;</span><br><span class="line">        <span class="string">"field"</span>: <span class="string">"update_time"</span>, </span><br><span class="line">        <span class="string">"interval"</span>: <span class="string">"1d"</span>, </span><br><span class="line">        <span class="string">"format"</span>: <span class="string">"yyyy-MM-dd"</span></span><br><span class="line">      &#125;, </span><br><span class="line">      <span class="string">"aggs"</span>: &#123;</span><br><span class="line">        <span class="string">"op_agg"</span>: &#123;</span><br><span class="line">          <span class="string">"terms"</span>: &#123;</span><br><span class="line">            <span class="string">"field"</span>: <span class="string">"op_state"</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="指标（metric）"><a href="#指标（metric）" class="headerlink" title="指标（metric）"></a>指标（metric）</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 实例化对象略</span></span><br><span class="line">s.aggs.bucket(<span class="string">"price"</span>, <span class="string">"terms"</span>, field = <span class="string">"price"</span>).metric(<span class="string">"avg_price"</span>, <span class="string">"avg"</span>, field = <span class="string">"price"</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># JSON DSL</span></span><br><span class="line">&#123;</span><br><span class="line">  <span class="string">"aggs"</span>: &#123;</span><br><span class="line">    <span class="string">"price"</span>: &#123;</span><br><span class="line">      <span class="string">"terms"</span>: &#123;</span><br><span class="line">        <span class="string">"field"</span>: <span class="string">"price"</span></span><br><span class="line">      &#125;, </span><br><span class="line">      <span class="string">"aggs"</span>: &#123;</span><br><span class="line">        <span class="string">"avg_price"</span>: &#123;</span><br><span class="line">          <span class="string">"avg"</span>: &#123;</span><br><span class="line">            <span class="string">"field"</span>: <span class="string">"price"</span></span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+    
+
+    
+  </div>
+  <div class="article-info article-info-index">
+    
+    
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">ES</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
+    
 
+    
+
+    
+    
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//api.qrserver.com/v1/create-qr-code/?size=150x150&data=http://lswgg.github.io/2021/02/24/ES%E4%B9%8BDSL%E5%BA%93%E4%BD%BF%E7%94%A8/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+    
+    <div class="clearfix"></div>
+  </div>
   </div>
 </article>
+
+
+<nav id="article-nav">
   
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2020" class="archive-year">2020</a>
+  
+    <a href="/2021/02/23/Linux%E6%8E%92%E6%9F%A5%E5%91%BD%E4%BB%A4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Linux排查命令</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
         </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/12/24/CentOS%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8Cpython%E7%A8%8B%E5%BA%8F/" class="archive-article-date">
-  	<time datetime="2020-12-24T08:52:39.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-24</time>
-</a>
+        
+        
+        <div class="toc-container tooltip-left">
+            <i class="icon-font icon-category"></i>
+            <div class="tooltip tooltip-east">
+                <span class="tooltip-item">
+                </span>
+                <span class="tooltip-content">
+                    <div class="toc-article">
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#什么是elasticsearch-dsl"><span class="toc-number">1.</span> <span class="toc-text">什么是elasticsearch_dsl</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#创建连接"><span class="toc-number">1.1.</span> <span class="toc-text">创建连接</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#基本查询（Q方法）"><span class="toc-number">1.2.</span> <span class="toc-text">基本查询（Q方法）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#query"><span class="toc-number">1.2.1.</span> <span class="toc-text">query</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#组合查询"><span class="toc-number">1.2.2.</span> <span class="toc-text">组合查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-number">1.2.3.</span> <span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#分页"><span class="toc-number">1.2.4.</span> <span class="toc-text">分页</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#排序"><span class="toc-number">1.2.5.</span> <span class="toc-text">排序</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#聚合查询（A方法）"><span class="toc-number">1.3.</span> <span class="toc-text">聚合查询（A方法）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#桶（bucket）"><span class="toc-number">1.3.1.</span> <span class="toc-text">桶（bucket）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#指标（metric）"><span class="toc-number">1.3.2.</span> <span class="toc-text">指标（metric）</span></a></li></ol></li></ol></li></ol>
+                    </div>
+                </span>
+            </div>
         </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/24/CentOS%E5%90%8E%E5%8F%B0%E8%BF%90%E8%A1%8Cpython%E7%A8%8B%E5%BA%8F/">CentOS后台运行python程序</a>
-    </h1>
-  
+        
+    </div>
+</aside>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2020/12/01/Centos%E5%BC%80%E6%94%BE%E5%8F%8A%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3/" class="archive-article-date">
-  	<time datetime="2020-12-01T06:12:55.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2020-12-01</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2020/12/01/Centos%E5%BC%80%E6%94%BE%E5%8F%8A%E6%9F%A5%E7%9C%8B%E7%AB%AF%E5%8F%A3/">Centos开放及查看端口</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-      
-        </div></section>
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2019" class="archive-year">2019</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	
-<a href="/2019/12/02/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/" class="archive-article-date">
-  	<time datetime="2019-12-02T08:12:41.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-12-02</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2019/12/02/Linux%E5%9F%BA%E7%A1%80%E5%91%BD%E4%BB%A4/">Linux基础命令</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">Linux</a>
-        		</li>
-      		
-		</ul>
-	</div>
 
-          
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
 
-    
+
+
+
+
+
+  
+      <section id="comments" class="comments">
+        <style>
+          .comments{margin:30px;padding:10px;background:#fff}
+          @media screen and (max-width:800px){.comments{margin:auto;padding:10px;background:#fff}}
+        </style>
+        <div id="vcomment" class="comment"></div>
+<script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+<script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+<script src="https://cdnjs.loli.net/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+  var notify = 'false' == true ? true : false;
+  var verify = 'false' == true ? true : false;
+  new Valine({
+    av: AV,
+    el: '#vcomment',
+    notify: notify,
+    app_id: "akSt17hH0QhogvnWpUpEWLnX-gzGzoHsz",
+    app_key: "uUDT4jx91daFAfOzduaGbcQu",
+    placeholder: "Just go go",
+    avatar: "mm",
+  });
+</script>
+    </section>
+  
 
 
           </div>
@@ -397,9 +443,9 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
+		isPost: true,
 		isArchive: false,
-		isTag: true,
+		isTag: false,
 		isCategory: false,
 		open_in_new: false,
 		toc_hide_index: true,
