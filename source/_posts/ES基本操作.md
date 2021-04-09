@@ -58,10 +58,35 @@ Elasticsearch集群可以包含多个索引（数据库），每一个索引可�
   ```json
   POST /_analyze
   {
-    "analyzer": "keyword",
+    "analyzer": "standard",
     "text": "The 2 QUICK Brown-Foxes jumped over the lazy dog's bone."
   }
   ```
+
+结果
+
+```json
+{
+	"tokens": [{
+			"token": "the",
+			"start_offset": 0,
+			"end_offset": 3,
+			"type": "<ALPHANUM>",
+			"position": 0
+		},
+		{
+			"token": "2",
+			"start_offset": 4,
+			"end_offset": 5,
+			"type": "<NUM>",
+			"position": 1
+		},
+     ...
+	]
+}
+```
+
+
 
 详情点击跳转[官方文档](https://www.elastic.co/guide/en/elasticsearch/reference/7.5/analysis-analyzers.html)查看
 

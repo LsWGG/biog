@@ -134,3 +134,7 @@ live2d:
     height: 300
   mobile:
     show: true
+
+icp:
+  enable: true
+  id: '啊啊'
