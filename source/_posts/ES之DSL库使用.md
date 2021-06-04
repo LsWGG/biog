@@ -134,6 +134,22 @@ s = s.sort('-start_time')
 }
 ```
 
+### 限制返回字段
+
+```python
+# 指定字段
+s = s.source(["title", "body"])
+
+# 模糊查询
+s = s.source(include=["title"], exclude=["user.*"])
+
+# 使用dict序列化一个查询
+s = Search.from_dict({"query": {"match": {"title": "python"}}})
+
+# 修改已经存在的查询
+s.update_from_dict({"query": {"match": {"title": "python"}}, "size": 42})
+```
+
 ## 聚合查询（A方法）
 
 ### 桶（bucket）

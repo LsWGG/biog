@@ -16,7 +16,7 @@
 <meta property="og:description" content="ES相关_cat命令是系统信息查询相关的，下面分成好几个子命令分类。curl -XGET http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat  查看ES节点是否正常：curl http:&#x2F;&#x2F;127.0.0.1:9200 查看集群健康状态：curl http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;health?v 查看全部索引：curl http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-23T03:28:31.000Z">
-<meta property="article:modified_time" content="2021-02-25T03:34:15.581Z">
+<meta property="article:modified_time" content="2021-04-10T05:42:26.193Z">
 <meta property="article:author" content="木子家❀">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -199,7 +199,7 @@
           <span class="post-meta-item-icon">
             <i class="fa fa-keyboard-o"></i>
             <span class="post-meta-item-text">  字数统计: </span>
-            <span class="post-count">592字</span>
+            <span class="post-count">1.3k字</span>
           </span>
         </span>
     
@@ -208,7 +208,7 @@
           <span class="post-meta-item-icon">
             <i class="fa fa-hourglass-half"></i>
             <span class="post-meta-item-text">  阅读时长: </span>
-            <span class="post-count">2分</span>
+            <span class="post-count">5分</span>
           </span>
         </span>
     </div>
@@ -304,6 +304,146 @@
 <li>查看防火墙状态： firewall-cmd –state</li>
 <li>查看监听的端口：netstat -lnpt</li>
 </ol>
+<h2 id="TCP-IP抓包"><a href="#TCP-IP抓包" class="headerlink" title="TCP/IP抓包"></a>TCP/IP抓包</h2><p><code>tcpdump</code>命令是一款sniffer工具，是linux上的抓包工具，嗅探器；它可以打印出所有经过网络接口的数据包的头信息。</p>
+<h3 id="命令格式"><a href="#命令格式" class="headerlink" title="命令格式"></a>命令格式</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">tcpdump [ -DenNqvX ] [ -c count ] [ -F file ] [ -i interface ] [ -r file ]</span><br><span class="line">        [ -s snaplen ] [ -w file ] [ expression ]</span><br></pre></td></tr></table></figure>
+
+<h3 id="命令参数："><a href="#命令参数：" class="headerlink" title="命令参数："></a>命令参数：</h3><table>
+<thead>
+<tr>
+<th>-a</th>
+<th>尝试将网络和广播地址转换成名称</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-c&lt;数据包数目&gt;</td>
+<td>收到指定的数据包数目后，就停止进行倾倒操作</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>把编译过的数据包编码转换成可阅读的格式，并倾倒到标准输出</td>
+</tr>
+<tr>
+<td>-dd</td>
+<td>把编译过的数据包编码转换成C语言的格式，并倾倒到标准输出</td>
+</tr>
+<tr>
+<td>-ddd</td>
+<td>把编译过的数据包编码转换成十进制数字的格式，并倾倒到标准输出</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>输出的每行中都将包括数据链路层头部信息，例如源MAC和目标MAC。</td>
+</tr>
+<tr>
+<td>-f</td>
+<td>用数字显示网际网络地址</td>
+</tr>
+<tr>
+<td>-F&lt;表达文件&gt;</td>
+<td>指定内含表达方式的文件</td>
+</tr>
+<tr>
+<td>-i</td>
+<td>指定tcpdump需要监听的接口。默认会抓取第一个网络接口</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>使用标准输出列的缓冲区</td>
+</tr>
+<tr>
+<td>-n</td>
+<td>对地址以数字方式显式，否则显式为主机名</td>
+</tr>
+<tr>
+<td><strong>-nn</strong></td>
+<td><strong>除了-n的作用外，还把端口显示为数值，否则显示端口服务名。</strong></td>
+</tr>
+<tr>
+<td>-N</td>
+<td>不列出域名</td>
+</tr>
+<tr>
+<td>-O</td>
+<td>不将数据包编码最佳化</td>
+</tr>
+<tr>
+<td>-p</td>
+<td>不让网络界面进入混杂模式</td>
+</tr>
+<tr>
+<td>-q</td>
+<td>快速输出，仅列出少数的传输协议信息</td>
+</tr>
+<tr>
+<td>-r&lt;数据包文件&gt;</td>
+<td>从指定的文件读取数据包数据</td>
+</tr>
+<tr>
+<td>-s len</td>
+<td>设置数据包抓取长度为len，如果不设置默认将会是65535字节</td>
+</tr>
+<tr>
+<td>-S</td>
+<td>用绝对而非相对数值列出TCP关联数</td>
+</tr>
+<tr>
+<td>-t</td>
+<td>在每列倾倒资料上不显示时间戳记</td>
+</tr>
+<tr>
+<td>-tt</td>
+<td>在每列倾倒资料上显示未经格式化的时间戳记</td>
+</tr>
+<tr>
+<td>-T&lt;数据包类型&gt;</td>
+<td>强制将表达方式所指定的数据包转译成设置的数据包类型</td>
+</tr>
+<tr>
+<td>-v</td>
+<td>详细显示指令执行过程</td>
+</tr>
+<tr>
+<td>-vv</td>
+<td>更详细显示指令执行过程</td>
+</tr>
+<tr>
+<td>-x</td>
+<td>用十六进制字码列出数据包资料</td>
+</tr>
+<tr>
+<td><strong>-w&lt;数据包文件&gt;</strong></td>
+<td><strong>把数据包数据写入指定的文件</strong></td>
+</tr>
+</tbody></table>
+<h3 id="expression表达式"><a href="#expression表达式" class="headerlink" title="expression表达式"></a>expression表达式</h3><ul>
+<li><p>类型 type</p>
+<p>host、net、port、portrange</p>
+<p>例如：host 192.168.201.128 , net 128.3, port 20, portrange 6000-6008</p>
+</li>
+<li><p>目标 dir</p>
+<p>源-src、目的-dst</p>
+</li>
+<li><p>协议 proto</p>
+<p>tcp、udp、icmp</p>
+<p>为给定协议类型，则匹配所有可能的类型</p>
+</li>
+</ul>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><ol>
+<li><p>监视指定主机的数据包</p>
+<p>tcpdump -i ens33 host node1</p>
+</li>
+<li><p>抓取到本机22端口包</p>
+<p>tcpdump -c 10 -nn -i ens33 tcp dst port 22</p>
+</li>
+<li><p>抓取指定主机端口数据到文件</p>
+<p>tcpdump -i any -nn host 172.24.128.5 and port 19091 -s 0 -w cap.cap</p>
+</li>
+</ol>
+<blockquote>
+<p>详见：</p>
+<p><a href="https://www.linuxcool.com/tcpdump" target="_blank" rel="noopener">https://www.linuxcool.com/tcpdump</a></p>
+<p><a href="https://www.jianshu.com/p/d9162722f189" target="_blank" rel="noopener">https://www.jianshu.com/p/d9162722f189</a></p>
+</blockquote>
 <h1 id="硬件相关"><a href="#硬件相关" class="headerlink" title="硬件相关"></a>硬件相关</h1><ol>
 <li><p>查看物理CPU个数</p>
 <p> <code>cat /proc/cpuinfo| grep &quot;physical id&quot;| sort| uniq| wc -l</code></p>
@@ -443,7 +583,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ES相关"><span class="toc-number">1.</span> <span class="toc-text">ES相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka相关"><span class="toc-number">2.</span> <span class="toc-text">Kafka相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Topic"><span class="toc-number">2.1.</span> <span class="toc-text">Topic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消费者"><span class="toc-number">2.2.</span> <span class="toc-text">消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生产者"><span class="toc-number">2.3.</span> <span class="toc-text">生产者</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络相关"><span class="toc-number">3.</span> <span class="toc-text">网络相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH"><span class="toc-number">3.1.</span> <span class="toc-text">SSH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网卡"><span class="toc-number">3.2.</span> <span class="toc-text">网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程、端口"><span class="toc-number">3.3.</span> <span class="toc-text">进程、端口</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#硬件相关"><span class="toc-number">4.</span> <span class="toc-text">硬件相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python相关"><span class="toc-number">5.</span> <span class="toc-text">Python相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全日志"><span class="toc-number">6.</span> <span class="toc-text">安全日志</span></a></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#ES相关"><span class="toc-number">1.</span> <span class="toc-text">ES相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Kafka相关"><span class="toc-number">2.</span> <span class="toc-text">Kafka相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Topic"><span class="toc-number">2.1.</span> <span class="toc-text">Topic</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#消费者"><span class="toc-number">2.2.</span> <span class="toc-text">消费者</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#生产者"><span class="toc-number">2.3.</span> <span class="toc-text">生产者</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#网络相关"><span class="toc-number">3.</span> <span class="toc-text">网络相关</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#SSH"><span class="toc-number">3.1.</span> <span class="toc-text">SSH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网卡"><span class="toc-number">3.2.</span> <span class="toc-text">网卡</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#进程、端口"><span class="toc-number">3.3.</span> <span class="toc-text">进程、端口</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#TCP-IP抓包"><span class="toc-number">3.4.</span> <span class="toc-text">TCP&#x2F;IP抓包</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令格式"><span class="toc-number">3.4.1.</span> <span class="toc-text">命令格式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令参数："><span class="toc-number">3.4.2.</span> <span class="toc-text">命令参数：</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#expression表达式"><span class="toc-number">3.4.3.</span> <span class="toc-text">expression表达式</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#示例"><span class="toc-number">3.4.4.</span> <span class="toc-text">示例</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#硬件相关"><span class="toc-number">4.</span> <span class="toc-text">硬件相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Python相关"><span class="toc-number">5.</span> <span class="toc-text">Python相关</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#安全日志"><span class="toc-number">6.</span> <span class="toc-text">安全日志</span></a></li></ol>
                     </div>
                 </span>
             </div>
@@ -590,6 +730,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">Linux</a>
               </li>
              
@@ -602,14 +746,6 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">Web</a>
               </li>
              
@@ -618,11 +754,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color4">SQL</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
              
               <li class="article-tag-list-item">
