@@ -41,7 +41,147 @@ top: 0
   - 可执行程序目录  /bin   /sbin
   - 配置文件目录    /etc
 
-  ---
+## 运行模式
+
+运行模式也叫运行级别。在Linux进入系统时会运行第一个程序，这个程序运行时会从5种模式中选择一种运行，这5种模式，就是运行模式
+
+第一支程序说明：
+
+Centos6：systemV
+
+Centos7：systemd
+
+### 运行级别说明
+
+| centos6     | centos7                             | 含义         |
+| ----------- | ----------------------------------- | ------------ |
+| init0       | systemctl poweroff                  | 关机         |
+| init1       | systemctl rescue                    | 单用户模式   |
+| init[2,3,4] | systemctl isolate multi-user.target | 命令行模式   |
+| init5       | systemctl isolate graphical.target  | 图形界面模式 |
+| init6       | systemctl reboot                    | 重启         |
+
+### 运行模式管理
+
+1. 获取当前运行模式
+
+   ```bash
+   systermctl get-default
+   ```
+
+2. 临时设置运行模式
+
+   ```bash
+   # 临时设定为命令行模式
+   systemctl isolate multi-user.target
+   
+   init 3
+   ```
+
+3. 设定系统默认运行模式
+
+   ```bash
+   # 设定默认为命令行模式
+   systemctl set-default multi-user.target
+   ```
+
+## 计划任务
+
+指定时间或周期性运行脚本或命令
+
+### at一次性计划任务
+
+在centos中默认安装且启动
+
+1. atd管理
+
+   ```bash
+   systemctl status|start|stop|restart atd
+   ```
+
+2. at语法
+
+   | 命令           | 作用                       |
+   | -------------- | -------------------------- |
+   | at [选项] 时间 | 在指定的时间执行特定的任务 |
+
+   | 选项 | 作用                      |
+   | ---- | ------------------------- |
+   | -l   | 列出该用户所有任务，同atq |
+   | -d   | 删除一个任务，同atrm      |
+
+   | 时间格式                              | 含义                     |
+   | ------------------------------------- | ------------------------ |
+   | HH:MM                                 | 在指定之间执行任务       |
+   | HH:MM YYYY-MM-DD                      | 指定年月日               |
+   | HH:MM + [minutes\|hours\|days\|weeks] | 某个时刻后某个时间点执行 |
+
+3. 案例
+
+   ```bash
+   # 1.一分钟后，将执行任务时间点写入文件
+   at now + 1minutes
+   date > time.txt
+   # ctrl + d 退出at
+   
+   # 2.指定2021-06-30 00:00关闭服务器
+   at 00:00 2021-06-30
+   # 将内存中数据存储到硬盘中
+   /bin/sync
+   shutdown -h now
+   ```
+
+### cron周期性计划任务
+
+cron服务是由crond系统任务来控制的，可以用来循环执行任务。
+
+cron使用crontab指令建立计划任务之后，该工作会记录到`/var/spool/cron/`中
+
+cron的日志文件：`/var/log/cron`
+
+1. crontab命令
+
+   | 命令           | 作用                         |
+   | -------------- | ---------------------------- |
+   | crontab [选项] | 为每个用户维护周期的计划任务 |
+
+   | 选项        | 含义                                          |
+   | ----------- | --------------------------------------------- |
+   | -u username | 指定用户管理计划任务，只有root可使用          |
+   | -e          | 编辑crontab任务                               |
+   | -l          | 查看crontab任务                               |
+   | -r          | 移除全部crontab任务，若仅移除一项，使用-e编辑 |
+
+2. crontab语法
+
+   ```bash
+   cat /etc/crontab
+   ```
+
+   [在线Cron表达式生成器 - 码工具 (matools.com)](https://www.matools.com/cron/)
+
+## 日志管理
+
+### Linux系统日志类型
+
+1. 内核信息
+2. 系统信息
+3. 应用程序信息
+
+### rsyslog
+
+rsyslog是Linux中实现日志功能的服务，在cent5之前使用的syslog
+
+1. rsyslog管理
+
+   ```bash
+   systemctl status|start|stop|restart rsyslog
+   ```
+
+2. 配置文件
+
+   `/etc/rsyslog.conf`
+
 
 ## Linux基础命令
 
@@ -53,7 +193,6 @@ top: 0
   - man 命令
 
 - **自动补全**:tab 键
-
   1. 提高输入速度
   2. 降低输入错误率
 
@@ -252,14 +391,19 @@ find 查找路径 -name '文件名?'
     - 需要先安装  openssh-server 软件包
     - ssh 用户名@ip地址 
 
-  - **远程拷贝**:
+  - **远程传输**:
+
+    | 选项 | 作用                 |
+    | ---- | -------------------- |
+    | -P   | 指定远程主机sshd端口 |
+    | -r   | 传输文件夹           |
 
     - 上传:
       - `scp 本地文件 user@IP:/路径`
     - 下载:
       - `scp user@ip:/资源位置   本地位置`
 
-  - **软件安装和卸载**
+  - **ubantu软件安装和卸载**
 
     - 离线:
       - 安装	`dpkg -i xxx.deb`
@@ -272,17 +416,76 @@ find 查找路径 -name '文件名?'
 
 - ssh
 
+  ssh配置文件：`/etc/ssh/sshd_config`
+
   1. 查看ssh服务是否正常开启：`systemctl status sshd`
   2. 重启ssh服务：`systemctl status sshd`
   3. 查看ssh开放端口：`netstat -tnlp |grep ssh`
 
-- 网卡相关
+## 网络相关
 
-  网卡配置文件：`/etc/sysconfig/network-scripts/`
+在centos7中，默认的网络服务由NetworkManager提供。可以有两种工具管理网络，命令行工具`nmcli`和图形化配置工具`nmtui`，配置文件：`/etc/sysconfig/network-scripts/`
 
-  1. 重启网卡：`systemctl restart network`
-  2. 查看本机网关：`route -n`
-  3. 查看DNS：`cat /etc/resolv.conf`
+1. 重启网卡：`systemctl restart network`
+2. 查看本机网关：`route -n`
+3. 查看DNS：`cat /etc/resolv.conf`
+
+---
+
+1. nmcli语法
+
+   ```
+   nmcli --help
+   ```
+
+2. 查看设备信息
+
+   ```bash
+   # 简单信息查看
+   nmcli device status
+   
+   # 详细信息查看
+   nmcli device show
+   
+   # 某个设备的详细信息查看
+   nmcli device show interface-name
+   ```
+
+3. 查看连接信息
+
+   ```bash
+   # 简单连接信息
+   nmcli connection show
+   
+   # 某个连接的详细信息
+   nmcli connection show id
+   ```
+
+### 配置网络
+
+| 配置项                           | 含义                     |
+| -------------------------------- | ------------------------ |
+| connection.autoconnect [yes\|no] | 是否开机时启动网络       |
+| ipv4.method [auto\|manual]       | 自动还是手动设定网络参数 |
+| ipv4.dns                         | dns地址                  |
+| ipv4.addresses                   | ip地址                   |
+
+1. nmcli
+
+   ```bash
+   # 查看当前网卡数据
+   nmcli device show interface-name
+   
+   # 配置操作
+   nmcli connection modify interface-name \
+   
+   # 是配置生效
+   nmcli connection up interface-name
+   ```
+
+2. nmtui
+
+3. 修改配置文件（不建议）
 
 ---
 
@@ -321,12 +524,12 @@ nG  到第n行
 M   到屏幕中间
 w   跳到下一个单词
 
+dd 	剪贴
+5dd 剪贴5行
 yy  复制当前光标行
-nyy 从当前光标开始向下复制n行
+5yy 从当前光标开始向下复制5行
 p  	在当前光标下一行粘贴
-np  粘贴n次
-dd 	剪切
-ndd 剪切n行
+5p  粘贴5次
 
 yG 复制到末行
 ygg 复制到首行
@@ -337,10 +540,53 @@ X 向前删除一个字符
 >>  向前缩进
 <<  向前缩进
 
-/查找内容
+查找内容：
+/自上而下
+?自下而上
+
 n 向下跳到搜索内容
 N 反向跳
 
 u  撤消
 ctrl + r  反撤消
   ```
+
+### 异常退出
+
+已修改文件在未保存情况下，非正常退出终端
+
+1. 删除交换文件`.swp`
+2. 选择`d`删除交换文件
+   - `o`：只读方式打开
+   - `e`：直接编辑
+   - `r`：恢复
+   - `a`：终止
+   - `d`：删除交换文件
+
+## 软件管理
+
+### RPM
+
+**RPM常用命令**
+
+| 命令              | 作用                    |
+| ----------------- | ----------------------- |
+| rpm -ivh filename | 安装                    |
+| rpm -Uvh filename | 升级                    |
+| rpm -e filename   | 卸载                    |
+| rpm -qpi filename | 查询软件的描述信息      |
+| rpm -qa           | 查询系统中所有的rpm软件 |
+
+包依赖关系不好维护
+
+### yum
+
+**yum常用命令**
+
+| 命令                 | 作用                   |
+| -------------------- | ---------------------- |
+| yum install filename | 安装，-y：无需手动确认 |
+| yum update filename  | 升级                   |
+| yum remove filename  | 卸载                   |
+| yum list installed   | 查询已安装软件包       |
+

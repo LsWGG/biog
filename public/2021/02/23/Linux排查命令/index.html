@@ -16,7 +16,7 @@
 <meta property="og:description" content="ES相关_cat命令是系统信息查询相关的，下面分成好几个子命令分类。curl -XGET http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat  查看ES节点是否正常：curl http:&#x2F;&#x2F;127.0.0.1:9200 查看集群健康状态：curl http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;health?v 查看全部索引：curl http:&#x2F;&#x2F;127.0.0.1:9200&#x2F;_cat&#x2F;">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-02-23T03:28:31.000Z">
-<meta property="article:modified_time" content="2021-04-10T05:42:26.193Z">
+<meta property="article:modified_time" content="2021-06-18T13:44:16.713Z">
 <meta property="article:author" content="木子家❀">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -233,6 +233,7 @@
 <li>查看ES节点是否正常：curl <a href="http://127.0.0.1:9200" target="_blank" rel="noopener">http://127.0.0.1:9200</a></li>
 <li>查看集群健康状态：curl <a href="http://127.0.0.1:9200/_cat/health?v" target="_blank" rel="noopener">http://127.0.0.1:9200/_cat/health?v</a></li>
 <li>查看全部索引：curl <a href="http://127.0.0.1:9200/_cat/indices?v" target="_blank" rel="noopener">http://127.0.0.1:9200/_cat/indices?v</a></li>
+<li>查询数据：curl -H ‘Content-type:application/json’ -XGET ‘<a href="http://127.0.0.1:9200/index_name-*/_search?pretty’" target="_blank" rel="noopener">http://127.0.0.1:9200/index_name-*/_search?pretty’</a> -d ‘查询语句’</li>
 <li>创建索引：curl -XPUT <a href="http://127.0.0.1:9200/my_new_index" target="_blank" rel="noopener">http://127.0.0.1:9200/my_new_index</a></li>
 <li>删除索引：curl -XDELETE localhost:9200/example1?pretty</li>
 <li>插入数据：curl -XPUT <a href="http://127.0.0.1:9200/my_new_index/user/1?pretty" target="_blank" rel="noopener">http://127.0.0.1:9200/my_new_index/user/1?pretty</a> -d  ‘{“name”:”张三”,”age”:”23”}’</li>
@@ -294,6 +295,7 @@
 </ol>
 <h2 id="网卡"><a href="#网卡" class="headerlink" title="网卡"></a>网卡</h2><ol>
 <li>重启网卡：systemctl restart network</li>
+<li>网卡配置文件：/etc/sysconfig/network-scripts/ifcfg-em1</li>
 <li>查看本机网关：route -n</li>
 <li>查看DNS：cat /etc/resolv.conf</li>
 </ol>
@@ -730,7 +732,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -738,15 +740,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ES</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -758,11 +756,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -771,6 +769,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
             
             <div class="clearfix"></div>

@@ -17,7 +17,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="https://tupian-1300728887.cos.ap-chengdu.myqcloud.com/Xnip2019-08-05_11-15-00.png">
 <meta property="article:published_time" content="2019-12-02T08:12:41.000Z">
-<meta property="article:modified_time" content="2020-12-30T06:06:14.748Z">
+<meta property="article:modified_time" content="2021-06-27T13:04:27.690Z">
 <meta property="article:author" content="木子家❀">
 <meta property="article:tag" content="Linux">
 <meta name="twitter:card" content="summary">
@@ -201,7 +201,7 @@
           <span class="post-meta-item-icon">
             <i class="fa fa-keyboard-o"></i>
             <span class="post-meta-item-text">  字数统计: </span>
-            <span class="post-count">1.9k字</span>
+            <span class="post-count">2.9k字</span>
           </span>
         </span>
     
@@ -210,7 +210,7 @@
           <span class="post-meta-item-icon">
             <i class="fa fa-hourglass-half"></i>
             <span class="post-meta-item-text">  阅读时长: </span>
-            <span class="post-count">7分</span>
+            <span class="post-count">11分</span>
           </span>
         </span>
     </div>
@@ -268,9 +268,181 @@
 <li>可执行程序目录  /bin   /sbin</li>
 <li>配置文件目录    /etc</li>
 </ul>
-<hr>
 </li>
 </ul>
+<h2 id="运行模式"><a href="#运行模式" class="headerlink" title="运行模式"></a>运行模式</h2><p>运行模式也叫运行级别。在Linux进入系统时会运行第一个程序，这个程序运行时会从5种模式中选择一种运行，这5种模式，就是运行模式</p>
+<p>第一支程序说明：</p>
+<p>Centos6：systemV</p>
+<p>Centos7：systemd</p>
+<h3 id="运行级别说明"><a href="#运行级别说明" class="headerlink" title="运行级别说明"></a>运行级别说明</h3><table>
+<thead>
+<tr>
+<th>centos6</th>
+<th>centos7</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>init0</td>
+<td>systemctl poweroff</td>
+<td>关机</td>
+</tr>
+<tr>
+<td>init1</td>
+<td>systemctl rescue</td>
+<td>单用户模式</td>
+</tr>
+<tr>
+<td>init[2,3,4]</td>
+<td>systemctl isolate multi-user.target</td>
+<td>命令行模式</td>
+</tr>
+<tr>
+<td>init5</td>
+<td>systemctl isolate graphical.target</td>
+<td>图形界面模式</td>
+</tr>
+<tr>
+<td>init6</td>
+<td>systemctl reboot</td>
+<td>重启</td>
+</tr>
+</tbody></table>
+<h3 id="运行模式管理"><a href="#运行模式管理" class="headerlink" title="运行模式管理"></a>运行模式管理</h3><ol>
+<li><p>获取当前运行模式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systermctl get-default</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>临时设置运行模式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 临时设定为命令行模式</span></span><br><span class="line">systemctl isolate multi-user.target</span><br><span class="line"></span><br><span class="line">init 3</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>设定系统默认运行模式</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 设定默认为命令行模式</span></span><br><span class="line">systemctl <span class="built_in">set</span>-default multi-user.target</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h2 id="计划任务"><a href="#计划任务" class="headerlink" title="计划任务"></a>计划任务</h2><p>指定时间或周期性运行脚本或命令</p>
+<h3 id="at一次性计划任务"><a href="#at一次性计划任务" class="headerlink" title="at一次性计划任务"></a>at一次性计划任务</h3><p>在centos中默认安装且启动</p>
+<ol>
+<li><p>atd管理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status|start|stop|restart atd</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>at语法</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>at [选项] 时间</td>
+<td>在指定的时间执行特定的任务</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-l</td>
+<td>列出该用户所有任务，同atq</td>
+</tr>
+<tr>
+<td>-d</td>
+<td>删除一个任务，同atrm</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>时间格式</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>HH:MM</td>
+<td>在指定之间执行任务</td>
+</tr>
+<tr>
+<td>HH:MM YYYY-MM-DD</td>
+<td>指定年月日</td>
+</tr>
+<tr>
+<td>HH:MM + [minutes|hours|days|weeks]</td>
+<td>某个时刻后某个时间点执行</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>案例</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 1.一分钟后，将执行任务时间点写入文件</span></span><br><span class="line">at now + 1minutes</span><br><span class="line">date &gt; time.txt</span><br><span class="line"><span class="comment"># ctrl + d 退出at</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 2.指定2021-06-30 00:00关闭服务器</span></span><br><span class="line">at 00:00 2021-06-30</span><br><span class="line"><span class="comment"># 将内存中数据存储到硬盘中</span></span><br><span class="line">/bin/sync</span><br><span class="line">shutdown -h now</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="cron周期性计划任务"><a href="#cron周期性计划任务" class="headerlink" title="cron周期性计划任务"></a>cron周期性计划任务</h3><p>cron服务是由crond系统任务来控制的，可以用来循环执行任务。</p>
+<p>cron使用crontab指令建立计划任务之后，该工作会记录到<code>/var/spool/cron/</code>中</p>
+<p>cron的日志文件：<code>/var/log/cron</code></p>
+<ol>
+<li><p>crontab命令</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>crontab [选项]</td>
+<td>为每个用户维护周期的计划任务</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-u username</td>
+<td>指定用户管理计划任务，只有root可使用</td>
+</tr>
+<tr>
+<td>-e</td>
+<td>编辑crontab任务</td>
+</tr>
+<tr>
+<td>-l</td>
+<td>查看crontab任务</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>移除全部crontab任务，若仅移除一项，使用-e编辑</td>
+</tr>
+</tbody></table>
+</li>
+<li><p>crontab语法</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">cat /etc/crontab</span><br></pre></td></tr></table></figure>
+
+<p><a href="https://www.matools.com/cron/" target="_blank" rel="noopener">在线Cron表达式生成器 - 码工具 (matools.com)</a></p>
+</li>
+</ol>
+<h2 id="日志管理"><a href="#日志管理" class="headerlink" title="日志管理"></a>日志管理</h2><h3 id="Linux系统日志类型"><a href="#Linux系统日志类型" class="headerlink" title="Linux系统日志类型"></a>Linux系统日志类型</h3><ol>
+<li>内核信息</li>
+<li>系统信息</li>
+<li>应用程序信息</li>
+</ol>
+<h3 id="rsyslog"><a href="#rsyslog" class="headerlink" title="rsyslog"></a>rsyslog</h3><p>rsyslog是Linux中实现日志功能的服务，在cent5之前使用的syslog</p>
+<ol>
+<li><p>rsyslog管理</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl status|start|stop|restart rsyslog</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>配置文件</p>
+<p><code>/etc/rsyslog.conf</code></p>
+</li>
+</ol>
 <h2 id="Linux基础命令"><a href="#Linux基础命令" class="headerlink" title="Linux基础命令"></a>Linux基础命令</h2><ul>
 <li><p>Linux命令格式：命令   选项   参数</p>
 </li>
@@ -500,7 +672,23 @@
 <li>ssh 用户名@ip地址 </li>
 </ul>
 </li>
-<li><p><strong>远程拷贝</strong>:</p>
+<li><p><strong>远程传输</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-P</td>
+<td>指定远程主机sshd端口</td>
+</tr>
+<tr>
+<td>-r</td>
+<td>传输文件夹</td>
+</tr>
+</tbody></table>
 <ul>
 <li>上传:<ul>
 <li><code>scp 本地文件 user@IP:/路径</code></li>
@@ -512,7 +700,7 @@
 </li>
 </ul>
 </li>
-<li><p><strong>软件安装和卸载</strong></p>
+<li><p><strong>ubantu软件安装和卸载</strong></p>
 <ul>
 <li>离线:<ul>
 <li>安装    <code>dpkg -i xxx.deb</code></li>
@@ -533,21 +721,66 @@
 </ul>
 <ul>
 <li><p>ssh</p>
+<p>ssh配置文件：<code>/etc/ssh/sshd_config</code></p>
 <ol>
 <li>查看ssh服务是否正常开启：<code>systemctl status sshd</code></li>
 <li>重启ssh服务：<code>systemctl status sshd</code></li>
 <li>查看ssh开放端口：<code>netstat -tnlp |grep ssh</code></li>
 </ol>
 </li>
-<li><p>网卡相关</p>
-<p>网卡配置文件：<code>/etc/sysconfig/network-scripts/</code></p>
+</ul>
+<h2 id="网络相关"><a href="#网络相关" class="headerlink" title="网络相关"></a>网络相关</h2><p>在centos7中，默认的网络服务由NetworkManager提供。可以有两种工具管理网络，命令行工具<code>nmcli</code>和图形化配置工具<code>nmtui</code>，配置文件：<code>/etc/sysconfig/network-scripts/</code></p>
 <ol>
 <li>重启网卡：<code>systemctl restart network</code></li>
 <li>查看本机网关：<code>route -n</code></li>
 <li>查看DNS：<code>cat /etc/resolv.conf</code></li>
 </ol>
+<hr>
+<ol>
+<li><p>nmcli语法</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nmcli <span class="comment">--help</span></span><br></pre></td></tr></table></figure>
 </li>
-</ul>
+<li><p>查看设备信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简单信息查看</span></span><br><span class="line">nmcli device status</span><br><span class="line"></span><br><span class="line"><span class="comment"># 详细信息查看</span></span><br><span class="line">nmcli device show</span><br><span class="line"></span><br><span class="line"><span class="comment"># 某个设备的详细信息查看</span></span><br><span class="line">nmcli device show interface-name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看连接信息</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 简单连接信息</span></span><br><span class="line">nmcli connection show</span><br><span class="line"></span><br><span class="line"><span class="comment"># 某个连接的详细信息</span></span><br><span class="line">nmcli connection show id</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+<h3 id="配置网络"><a href="#配置网络" class="headerlink" title="配置网络"></a>配置网络</h3><table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>connection.autoconnect [yes|no]</td>
+<td>是否开机时启动网络</td>
+</tr>
+<tr>
+<td>ipv4.method [auto|manual]</td>
+<td>自动还是手动设定网络参数</td>
+</tr>
+<tr>
+<td>ipv4.dns</td>
+<td>dns地址</td>
+</tr>
+<tr>
+<td>ipv4.addresses</td>
+<td>ip地址</td>
+</tr>
+</tbody></table>
+<ol>
+<li><p>nmcli</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前网卡数据</span></span><br><span class="line">nmcli device show interface-name</span><br><span class="line"></span><br><span class="line"><span class="comment"># 配置操作</span></span><br><span class="line">nmcli connection modify interface-name \</span><br><span class="line"></span><br><span class="line"><span class="comment"># 是配置生效</span></span><br><span class="line">nmcli connection up interface-name</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>nmtui</p>
+</li>
+<li><p>修改配置文件（不建议）</p>
+</li>
+</ol>
 <hr>
 <h2 id="vim"><a href="#vim" class="headerlink" title="vim"></a>vim</h2><ul>
 <li>编辑模式    <code>i 从命令变成编辑模式</code></li>
@@ -570,7 +803,76 @@
 <ul>
 <li>命令模式操作</li>
 </ul>
-  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">光标移动:</span><br><span class="line">hjkl  -&gt; 左下上右</span><br><span class="line">0  	回到行首</span><br><span class="line">$   跳到行尾</span><br><span class="line">gg  到首行</span><br><span class="line">G   到末行</span><br><span class="line">nG  到第n行</span><br><span class="line">M   到屏幕中间</span><br><span class="line">w   跳到下一个单词</span><br><span class="line"></span><br><span class="line">yy  复制当前光标行</span><br><span class="line">nyy 从当前光标开始向下复制n行</span><br><span class="line">p  	在当前光标下一行粘贴</span><br><span class="line">np  粘贴n次</span><br><span class="line">dd 	剪切</span><br><span class="line">ndd 剪切n行</span><br><span class="line"></span><br><span class="line">yG 复制到末行</span><br><span class="line">ygg 复制到首行</span><br><span class="line"></span><br><span class="line">x 向后删除一个字符</span><br><span class="line">X 向前删除一个字符</span><br><span class="line"></span><br><span class="line">&gt;&gt;  向前缩进</span><br><span class="line">&lt;&lt;  向前缩进</span><br><span class="line"></span><br><span class="line">/查找内容</span><br><span class="line">n 向下跳到搜索内容</span><br><span class="line">N 反向跳</span><br><span class="line"></span><br><span class="line">u  撤消</span><br><span class="line">ctrl + r  反撤消</span><br></pre></td></tr></table></figure>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line">光标移动:</span><br><span class="line">hjkl  -&gt; 左下上右</span><br><span class="line">0  	回到行首</span><br><span class="line">$   跳到行尾</span><br><span class="line">gg  到首行</span><br><span class="line">G   到末行</span><br><span class="line">nG  到第n行</span><br><span class="line">M   到屏幕中间</span><br><span class="line">w   跳到下一个单词</span><br><span class="line"></span><br><span class="line">dd 	剪贴</span><br><span class="line">5dd 剪贴5行</span><br><span class="line">yy  复制当前光标行</span><br><span class="line">5yy 从当前光标开始向下复制5行</span><br><span class="line">p  	在当前光标下一行粘贴</span><br><span class="line">5p  粘贴5次</span><br><span class="line"></span><br><span class="line">yG 复制到末行</span><br><span class="line">ygg 复制到首行</span><br><span class="line"></span><br><span class="line">x 向后删除一个字符</span><br><span class="line">X 向前删除一个字符</span><br><span class="line"></span><br><span class="line">&gt;&gt;  向前缩进</span><br><span class="line">&lt;&lt;  向前缩进</span><br><span class="line"></span><br><span class="line">查找内容：</span><br><span class="line">/自上而下</span><br><span class="line">?自下而上</span><br><span class="line"></span><br><span class="line">n 向下跳到搜索内容</span><br><span class="line">N 反向跳</span><br><span class="line"></span><br><span class="line">u  撤消</span><br><span class="line">ctrl + r  反撤消</span><br></pre></td></tr></table></figure>
+
+<h3 id="异常退出"><a href="#异常退出" class="headerlink" title="异常退出"></a>异常退出</h3><p>已修改文件在未保存情况下，非正常退出终端</p>
+<ol>
+<li>删除交换文件<code>.swp</code></li>
+<li>选择<code>d</code>删除交换文件<ul>
+<li><code>o</code>：只读方式打开</li>
+<li><code>e</code>：直接编辑</li>
+<li><code>r</code>：恢复</li>
+<li><code>a</code>：终止</li>
+<li><code>d</code>：删除交换文件</li>
+</ul>
+</li>
+</ol>
+<h2 id="软件管理"><a href="#软件管理" class="headerlink" title="软件管理"></a>软件管理</h2><h3 id="RPM"><a href="#RPM" class="headerlink" title="RPM"></a>RPM</h3><p><strong>RPM常用命令</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>rpm -ivh filename</td>
+<td>安装</td>
+</tr>
+<tr>
+<td>rpm -Uvh filename</td>
+<td>升级</td>
+</tr>
+<tr>
+<td>rpm -e filename</td>
+<td>卸载</td>
+</tr>
+<tr>
+<td>rpm -qpi filename</td>
+<td>查询软件的描述信息</td>
+</tr>
+<tr>
+<td>rpm -qa</td>
+<td>查询系统中所有的rpm软件</td>
+</tr>
+</tbody></table>
+<p>包依赖关系不好维护</p>
+<h3 id="yum"><a href="#yum" class="headerlink" title="yum"></a>yum</h3><p><strong>yum常用命令</strong></p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>yum install filename</td>
+<td>安装，-y：无需手动确认</td>
+</tr>
+<tr>
+<td>yum update filename</td>
+<td>升级</td>
+</tr>
+<tr>
+<td>yum remove filename</td>
+<td>卸载</td>
+</tr>
+<tr>
+<td>yum list installed</td>
+<td>查询已安装软件包</td>
+</tr>
+</tbody></table>
+
     
 
     
@@ -686,7 +988,7 @@
                 </span>
                 <span class="tooltip-content">
                     <div class="toc-article">
-                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux常用命令总结"><span class="toc-number">1.</span> <span class="toc-text">Linux常用命令总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统"><span class="toc-number">1.1.</span> <span class="toc-text">操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux基础命令"><span class="toc-number">1.2.</span> <span class="toc-text">Linux基础命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim"><span class="toc-number">1.3.</span> <span class="toc-text">vim</span></a></li></ol></li></ol>
+                    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Linux常用命令总结"><span class="toc-number">1.</span> <span class="toc-text">Linux常用命令总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#操作系统"><span class="toc-number">1.1.</span> <span class="toc-text">操作系统</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#运行模式"><span class="toc-number">1.2.</span> <span class="toc-text">运行模式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#运行级别说明"><span class="toc-number">1.2.1.</span> <span class="toc-text">运行级别说明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#运行模式管理"><span class="toc-number">1.2.2.</span> <span class="toc-text">运行模式管理</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#计划任务"><span class="toc-number">1.3.</span> <span class="toc-text">计划任务</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#at一次性计划任务"><span class="toc-number">1.3.1.</span> <span class="toc-text">at一次性计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#cron周期性计划任务"><span class="toc-number">1.3.2.</span> <span class="toc-text">cron周期性计划任务</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志管理"><span class="toc-number">1.4.</span> <span class="toc-text">日志管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux系统日志类型"><span class="toc-number">1.4.1.</span> <span class="toc-text">Linux系统日志类型</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#rsyslog"><span class="toc-number">1.4.2.</span> <span class="toc-text">rsyslog</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Linux基础命令"><span class="toc-number">1.5.</span> <span class="toc-text">Linux基础命令</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网络相关"><span class="toc-number">1.6.</span> <span class="toc-text">网络相关</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#配置网络"><span class="toc-number">1.6.1.</span> <span class="toc-text">配置网络</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#vim"><span class="toc-number">1.7.</span> <span class="toc-text">vim</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#异常退出"><span class="toc-number">1.7.1.</span> <span class="toc-text">异常退出</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#软件管理"><span class="toc-number">1.8.</span> <span class="toc-text">软件管理</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#RPM"><span class="toc-number">1.8.1.</span> <span class="toc-text">RPM</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#yum"><span class="toc-number">1.8.2.</span> <span class="toc-text">yum</span></a></li></ol></li></ol></li></ol>
                     </div>
                 </span>
             </div>
@@ -833,7 +1135,7 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+                <a href="javascript:void(0)" class="js-tag color5">tool</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -841,15 +1143,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">Python</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">ES</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">tool</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">Web</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -861,11 +1159,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color2">python</a>
+                <a href="javascript:void(0)" class="js-tag color4">Web</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">web</a>
+                <a href="javascript:void(0)" class="js-tag color2">python</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -874,6 +1172,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">测试</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">web</a>
               </li>
             
             <div class="clearfix"></div>

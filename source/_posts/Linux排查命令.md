@@ -13,9 +13,10 @@ curl -XGET http://127.0.0.1:9200/_cat
 1. 查看ES节点是否正常：curl http://127.0.0.1:9200
 2. 查看集群健康状态：curl http://127.0.0.1:9200/_cat/health?v
 3. 查看全部索引：curl http://127.0.0.1:9200/_cat/indices?v
-4. 创建索引：curl -XPUT http://127.0.0.1:9200/my_new_index
-5. 删除索引：curl -XDELETE localhost:9200/example1?pretty
-5. 插入数据：curl -XPUT http://127.0.0.1:9200/my_new_index/user/1?pretty -d  '{"name":"张三","age":"23"}'
+4. 查询数据：curl -H ‘Content-type:application/json’ -XGET ‘http://127.0.0.1:9200/index_name-*/_search?pretty’ -d ‘查询语句’
+5. 创建索引：curl -XPUT http://127.0.0.1:9200/my_new_index
+6. 删除索引：curl -XDELETE localhost:9200/example1?pretty
+7. 插入数据：curl -XPUT http://127.0.0.1:9200/my_new_index/user/1?pretty -d  '{"name":"张三","age":"23"}'
 
 <!--more-->
 
@@ -34,7 +35,6 @@ curl -XGET http://127.0.0.1:9200/_cat
    - topic 定义topic名
 - replication-factor 定义副本数
    - partitions 定义分区数
-   
 3. 删除topic
 
    `bin/kafka-topics.sh --zookeeper 127.0.0.1:2181 --delete --topic test`
@@ -67,7 +67,6 @@ curl -XGET http://127.0.0.1:9200/_cat
 1. 发送消息
 
    `bin/kafka-console-producer.sh --broker-list 127.0.0.1:9092 --topic test`
-   
 
 # 网络相关
 
@@ -78,8 +77,9 @@ curl -XGET http://127.0.0.1:9200/_cat
 
 ## 网卡
 1. 重启网卡：systemctl restart network
-2. 查看本机网关：route -n
-3. 查看DNS：cat /etc/resolv.conf
+2. 网卡配置文件：/etc/sysconfig/network-scripts/ifcfg-em1
+3. 查看本机网关：route -n
+4. 查看DNS：cat /etc/resolv.conf
 
 ## 进程、端口
 1. 对外开放tcp端口：iptables -I INPUT -p tcp --dport port -j ACCEPT
